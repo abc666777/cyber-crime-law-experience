@@ -1,0 +1,94 @@
+Each line may have multiple actions. Actions on the same line should be delimited by a space. Because of this, value,
+including filenames, shouldn't contain spaces.
+
+- Make a character speak
+  characterName "dialogue"                                                      ex: เอก "Hello World".
+  No name before dialogue means use last speaker.                               ex: "This is a test server."
+#commands in dialogue
+  {} symbols identify and expectation for user input and what to do when
+  receiving it. Or another form of input.
+  {c} cue input and clear the dialogue container. Begin new segment.            ex: เอก "sub boi{c}this is new line"
+  {w number} wait for time and append new dialogue to existing.                 ex: เอก "sub boi{w 1.5}this will wait for 1.5 second and append new dialogue"
+#using commands in dialogue
+  [] commands inside dialogue can be use to trigger events in difference part   ex: "Hello World [txtSpd 10,1]"
+  [txtSpd slowness,characterPerframe] change text to slow                       ex: "Hello World [txtSpd 10,1]"
+  [/txtSpd] end text slow
+  [value] set text equals to value //not implement yet                          ex: "Hello World my name is [characterName]"
+  [command()] trigger command                                                   ex: "Hello World [showScene(true,hypno)]"
+
+- Change Layer Image
+  setBackground(imageName)                                                      ex: setBackground(placeholder1)
+  setCinematic(videoName)                                                       ex: setCinematic(placeholder)
+  setForeground(imageName or videoName)                                         ex: setForeground(placeholder2)
+  (always set the unused layer to null first)
+# extra parameters
+  1. speed of transition                                                        ex: set___________(placeholder,1.0)
+  2. transition smoothing                                                       ex: set___________(placeholder,true)
+  3. set both parameters (order is not important, but name                      ex: set___________(placholder,1.0,true)
+  must always come first)
+
+- Transition for background
+  transBackground(imageName,transitionEffectName)                               ex: transBackground(placeholder,rightLeft)
+  transCinematic(imageName,transitionEffectName)                                ex: transCinematic(placeholder,hurricane)
+  transForeground(imageName,transitionEffectName)                               ex: transBackground(placeholder,hypno)
+#extra parameters
+  1. speed of transition                                                        ex: trans__________(placeholder,rightLeft,1.0)
+  2. transition smoothing                                                       ex: trans__________(placeholder,rightLeft,true)
+  3. set both parameters (order is not important, but name                      ex: trans___________(placholder,hurricane,1.0,true)
+  must always come first)
+
+- Show or Hide the entire scene with special transition
+  showScene(true/false,transitionEffectName)                                    ex: showScene(false,hypno)
+#extra parameters
+  1. speed of transition                                                        ex: showScene(false,rightLeft,1.0)
+  2. transition smoothing                                                       ex: showScene(false,rightLeft,true)
+  3. set both parameters (order is not important, but name                      ex: showScene(false,rightLeft,1.0,true)
+  must always come first)
+
+- Play sound effect
+  playSFX(sfxName)                                                              ex: playSFX(leeroy)
+
+- Play background music
+  playBGM(bgmName)                                                              ex: playBGM(void)
+
+- move character
+  move(characterName,locationX)                                                 ex: move(เอก,1.0)
+#extra parameters
+  1. location on Y Axis                                                         ex: move(เอก,1.0.1.0)
+  2. move speed                                                                 ex: move(เอก,1.0,1.0,1.0)
+  3. transition smoothing                                                       ex: move(เอก,1.0,1.0,1.0,false)
+  (order is important and must either have only 1 or both)                      ex: move(เอก,1.0,1.0,2.0,false)
+
+- set character position
+  setPosition(characterName,locationX,locationY)                                ex: setPosition(เอก,1.0,0)
+
+- set character expression
+  setExpression(characterName, expression)                                      ex: setExpression(เอก,sad)
+#extra parameters
+  1. speed of transition                                                        ex: setExpression(เอก,sad,1f)
+  2. transition smoothing                                                       ex: setExpression(เอก,sad,1f,false)
+  (order is important and must either have only 1 or both)                      ex: setExpression(เอก,sad,1f,false)
+
+- Flip a character
+  flip(characterName)                                                           ex: flip(เอก)
+  faceLeft(characterName)                                                       ex: faceLeft(เอก)
+  faceRight(characterName)                                                      ex: faceRight(เอก)
+
+- Character enter and exit the screen
+  enter(characterName)                                                          ex: enter(เอก)
+  exit(characterName)                                                           ex: exit(เอก)
+#extra parameters
+  1. speed of transition                                                        ex: _____(เอก,1.0)
+  2. transition smoothing                                                       ex: _____(เอก,false)
+  (order is not important, but name must always come first)                     ex: _____(เอก,1.0,false)
+
+- choice format
+choice                                                                          ex: choice
+{                                                                               {
+  "Choice1"                                                                       "Tit"
+    "Dialogue" command()                                                            "You're a bad person." load(chap_10)
+  "Choice2"                                                                       "Ass"
+    "Dialogue"                                                                      "That was a great answer, kindred spirit of..."
+  "ChoiceX"                                                                     }
+    "Dialogue"
+}

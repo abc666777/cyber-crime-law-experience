@@ -54,36 +54,36 @@ public class AudioManager : MonoBehaviour
     }
 
 
-        IEnumerator VolumeLeveling(){
-            while(TransitionSongs()){
-                yield return new WaitForEndOfFrame(); 
-            }
+    IEnumerator VolumeLeveling(){
+        while(TransitionSongs()){
+            yield return new WaitForEndOfFrame(); 
         }
+    }
 
-        bool TransitionSongs(){
-            bool anyValueChanged = false;
+    bool TransitionSongs(){
+        bool anyValueChanged = false;
 
-            float speed = songTransition * Time.deltaTime;
-            for(int i = allSongs.Count - 1; i >= 0; i--){
-                Song song = allSongs[i];
+        float speed = songTransition * Time.deltaTime;
+        for(int i = allSongs.Count - 1; i >= 0; i--){
+            Song song = allSongs[i];
 
-                if(song == activeSong){
-                    if(song.volume < song.maxVolume){
-                        song.volume = smoothSongTransition ? Mathf.Lerp(song.volume, song.maxVolume, speed) : Mathf.MoveTowards(song.volume, song.maxVolume, speed);
-                        anyValueChanged = true;
-                    }
-                
+            if(song == activeSong){
+                if(song.volume < song.maxVolume){
+                    song.volume = smoothSongTransition ? Mathf.Lerp(song.volume, song.maxVolume, speed) : Mathf.MoveTowards(song.volume, song.maxVolume, speed);
+                    anyValueChanged = true;
                 }
-                else{
-                    if(song.volume > 0){
-                        song.volume = smoothSongTransition ? Mathf.Lerp(song.volume, 0, speed) : Mathf.MoveTowards(song.volume, 0, speed);
-                        anyValueChanged = true;
-                    }
                 
-                    else{
-                        allSongs.RemoveAt(i) ;
-                        song.Destroy();
-                        continue;
+            }
+            else{
+                if(song.volume > 0){
+                    song.volume = smoothSongTransition ? Mathf.Lerp(song.volume, 0, speed) : Mathf.MoveTowards(song.volume, 0, speed);
+                    anyValueChanged = true;
+                }
+                
+                else{
+                    allSongs.RemoveAt(i) ;
+                    song.Destroy();
+                    continue;
                 }
             }
         }
