@@ -13,10 +13,83 @@ public class NovelController : MonoBehaviour
     void Awake() {
         instance = this;
     }
+
+    int activeGameFileNumber = 0;
+    GAMEFILE activeGameFile = null;
+    string activeChapterFile = "";
     void Start()
     {
-        LoadChapterFile("test");
-        //Next();
+        LoadGameFile(0);
+    }
+
+    public void LoadGameFile(int gameFileNumber){
+        activeGameFileNumber = gameFileNumber;
+        string filePath = FileManager.savPath + "Resources/gameFiles/" + gameFileNumber.ToString() + ".txt";
+
+        if(!System.IO.File.Exists(filePath)){
+            FileManager.SaveJSON(filePath, new GAMEFILE());
+        }
+
+        activeGameFile = FileManager.LoadJSON<GAMEFILE>(filePath);
+
+        data = FileManager.LoadFile(FileManager.savPath + "Resources/Story/" + activeGameFile.chapterName);
+        activeChapterFile = activeGameFile.chapterName;
+        cachedLastSpeaker = activeGameFile.cachedLastSpeaker;
+        
+        DialogueSystem.instance.Open(activeGameFile.currentTextSystemSpeakerDisplayText, activeGameFile.currentTextSystemDisplayText);
+
+        for(int i = 0; i < activeGameFile.charactersInScene.Count; i++){
+            GAMEFILE.CHARACTERDATA data = activeGameFile.charactersInScene[i];
+            Character character = CharacterManager.instance.GetCharacter(data.characterName, data.enabled);
+            character.SetTexture(data.expression);
+            if(data.facingRight)
+                character.FaceRight();
+            else
+                character.FaceLeft();
+            character.SetPosition(data.position);
+        }
+
+        if(activeGameFile.background != null)
+            BackgroundManager.instance.background.SetTexture(activeGameFile.background);
+        if(activeGameFile.cinematic != null)
+            BackgroundManager.instance.cinematic.SetTexture(activeGameFile.cinematic);
+        if(activeGameFile.foreground != null)
+            BackgroundManager.instance.foreground.SetTexture(activeGameFile.foreground);
+
+        if(activeGameFile.music != null){
+            AudioManager.instance.PlayBGM(activeGameFile.music);
+        }
+
+        if(handlingChapterFile != null){
+            StopCoroutine(handlingChapterFile);
+        }
+        handlingChapterFile = StartCoroutine(HandlingChapterFile());
+
+        chapterProgress = activeGameFile.chapterProgress;
+    }
+
+    public void SaveGameFile(){
+        string filePath = FileManager.savPath + "Resources/gameFiles/" + activeGameFileNumber.ToString() + ".txt";
+
+        activeGameFile.chapterName = activeChapterFile;
+        activeGameFile.chapterProgress = chapterProgress;
+        activeGameFile.cachedLastSpeaker = cachedLastSpeaker;
+
+        activeGameFile.currentTextSystemSpeakerDisplayText = DialogueSystem.instance.speakerNameText.text;
+        activeGameFile.currentTextSystemDisplayText = DialogueSystem.instance.speechText.text;
+        for(int i = 0; i < CharacterManager.instance.characters.Count; i++){
+            Character character = CharacterManager.instance.characters[i];
+            GAMEFILE.CHARACTERDATA data = new GAMEFILE.CHARACTERDATA(character);
+            activeGameFile.charactersInScene.Add(data);
+        }
+        BackgroundManager b = BackgroundManager.instance;
+        activeGameFile.background = b.background.activeImage != null ? b.background.activeImage.texture : null;
+        activeGameFile.cinematic = b.cinematic.activeImage != null ? b.cinematic.activeImage.texture : null;
+        activeGameFile.foreground = b.foreground.activeImage != null ? b.foreground.activeImage.texture : null;
+
+        activeGameFile.music = AudioManager.activeSong != null ? AudioManager.activeSong.clip : null;
+
+        FileManager.SaveJSON(filePath, activeGameFile);
     }
 
     // Update is called once per frame
@@ -26,9 +99,17 @@ public class NovelController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space)){
             Next();
         }
+
+        if(Input.GetKeyDown(KeyCode.S)){
+            SaveGameFile();
+        }
+        if(Input.GetKeyDown(KeyCode.L)){
+            LoadGameFile(0);
+        }
     }
 
     public void LoadChapterFile(string fileName){
+        activeChapterFile = fileName;
         data = FileManager.LoadFile(FileManager.savPath + "Resources/Story/" + fileName);
         cachedLastSpeaker = "";
 

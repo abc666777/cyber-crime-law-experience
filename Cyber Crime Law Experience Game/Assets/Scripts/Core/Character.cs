@@ -11,7 +11,7 @@ public class Character
 
     public bool enabled {
         get{return root.gameObject.activeInHierarchy;} 
-        set{root.gameObject.SetActive(value);}
+        set{root.gameObject.SetActive(value); visibleInScene = value;}
     }
 
     public Vector2 anchorPadding {get{return root.anchorMax - root.anchorMin;}}
@@ -69,13 +69,17 @@ public class Character
         dialogue = DialogueSystem.instance;
 
         enabled = enableOnStart;
+
+        visibleInScene = enabled;
     }
 
     public void Say(string speech, bool add = false){
         if(!enabled) enabled = true;
         dialogue.Say(speech, characterName, add);
     }
-
+    public Vector2 _targetPosition{
+        get {return targetPosition;}
+    }
     Vector2 targetPosition;
     Coroutine moving;
     bool isMoving {get{return moving != null;}}
@@ -85,6 +89,8 @@ public class Character
     }
 
     public void SetPosition(Vector2 target){
+
+        targetPosition = target;
         Vector2 padding = anchorPadding;
 
         float maxX = 1f - padding.x;
@@ -133,6 +139,9 @@ public class Character
         root.localScale = Vector3.one;
     }
 
+    public bool isVisibleInScene {get{return visibleInScene;}}
+    bool visibleInScene = true;
+
     public bool isFacingRight {get{return root.localScale.y == -1;}}
     public void FaceRight(){
         root.localScale = new Vector3(-1, 1, 1);
@@ -144,12 +153,15 @@ public class Character
         lastTexture = renderers.renderer.texture;
 
         TransitionBody(alphaTexture, speed, smooth);
+        visibleInScene = false;
 
     }
 
     public void FadeIn(float speed = 3f, bool smooth = false){
         if(lastTexture != null){
             TransitionBody(lastTexture, speed, smooth);
+            if (enabled)
+            visibleInScene = true;
         }
     }
 
@@ -174,7 +186,13 @@ public class Character
     }
 
     public void SetTexture(string textureName){
+        if(textureName == "AlphaOnly")
+            SetTexture(Resources.Load<Texture>("Images/AlphaOnly"));
         renderers.renderer.texture = GetTexture(textureName);
+    }
+
+    public void SetTexture (Texture texture){
+        renderers.renderer.texture = texture;
     }
 
     [System.Serializable]

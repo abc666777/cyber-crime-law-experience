@@ -85,9 +85,15 @@ public class DialogueSystem : MonoBehaviour
         speechPanel.SetActive(false);
     }
 
-    public void Open(){
-        StopSpeaking();
+    public void Open(string speaker = "", string text = ""){
+        if(speaker == "" && text == ""){
+            Close();
+            return;
+        }
         speechPanel.SetActive(true);
+        speakerNameText.text = speaker;
+        speakerNamePanel.SetActive(speaker != "");
+        speechText.text = text;
     }
 
     [System.Serializable]
