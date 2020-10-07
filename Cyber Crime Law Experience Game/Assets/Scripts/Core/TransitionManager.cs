@@ -97,7 +97,7 @@ public class TransitionManager : MonoBehaviour
 
         layer.specialTransitionCoroutine = null;
     }
-
+    #region TransitionToNull
     static IEnumerator TransitioningLayerToNull(BackgroundManager.Layer layer, Texture transitionEffect, float speed, bool smooth){
         List<RawImage> currentImagesOnLayer = new List<RawImage>();
         foreach(RawImage image in layer.allImages){
@@ -127,5 +127,6 @@ public class TransitionManager : MonoBehaviour
 
     }
 
+    #endregion
 
 }

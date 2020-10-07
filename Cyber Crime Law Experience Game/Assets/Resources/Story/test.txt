@@ -1,4 +1,7 @@
-narrator "this is a test script{a}this is also a test script{a}this test trigger background[transBackground(placeholder1,rightLeft,1.0)]{w 3} this test trigger [playSFX(test3)]music"
+narrator "this is a test script"
+"this is also a test script"
+"this test trigger background[setCinematic(MainMenu)]{w 3} this test trigger [playSFX(test3)]music"
+""
 choice
 {
   "YEET"

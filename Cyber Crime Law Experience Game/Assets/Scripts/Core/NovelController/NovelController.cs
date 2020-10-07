@@ -19,7 +19,7 @@ public class NovelController : MonoBehaviour
     string activeChapterFile = "";
     void Start()
     {
-        LoadGameFile(0);
+        LoadGameFile(1);
     }
 
     public void LoadGameFile(int gameFileNumber){
@@ -104,7 +104,7 @@ public class NovelController : MonoBehaviour
             SaveGameFile();
         }
         if(Input.GetKeyDown(KeyCode.L)){
-            LoadGameFile(0);
+            LoadGameFile(1);
         }
     }
 
@@ -128,7 +128,7 @@ public class NovelController : MonoBehaviour
     }
     public bool isHandlingChapterFile {get{return handlingChapterFile != null;}}
     Coroutine handlingChapterFile = null;
-    private int chapterProgress = 0;
+    [HideInInspector] public int chapterProgress = 0;
     IEnumerator HandlingChapterFile(){
         chapterProgress = 0;
 
@@ -210,7 +210,7 @@ public class NovelController : MonoBehaviour
     }
 
   
-    public bool isHandlingLine{get{return handlingLine != null;}}
+    [HideInInspector] public bool isHandlingLine{get{return handlingLine != null;}}
     Coroutine handlingLine = null;
     IEnumerator HandlingLine(ChapterLineManager.Line line){
         _next = false;
@@ -238,8 +238,8 @@ public class NovelController : MonoBehaviour
                 yield return new WaitForEndOfFrame();
                 if(_next){
                     segment.ForceFinish(); 
+                    _next = false;
                 }
-                _next = false;
             }
 
             lineProgress++;
