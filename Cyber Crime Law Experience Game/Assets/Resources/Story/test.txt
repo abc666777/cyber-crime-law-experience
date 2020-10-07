@@ -1,7 +1,7 @@
 narrator "this is a test script"
 "this is also a test script"
 "this test trigger background[setCinematic(MainMenu)]{w 3} this test trigger [playSFX(test3)]music"
-""
+"[setCinematic(null)]"
 choice
 {
   "YEET"
@@ -11,10 +11,8 @@ choice
 }
 
 เอก "this is past yeet."
-
-move(เอก,0,1)
-
-move(เอก,1,1)
+"[move(เอก,0,1)]"
+"[move(เอก,1,1)]"
 
 setPosition(เอก,0.5,0)
 

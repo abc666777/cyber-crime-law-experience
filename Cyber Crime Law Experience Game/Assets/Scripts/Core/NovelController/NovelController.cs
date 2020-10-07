@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NovelController : MonoBehaviour
-{
+{   
+    private enum mode {LOAD, NEW};
+    private mode curMode = mode.NEW;
     public static NovelController instance;
     List<string> data = new List<string>();
     //int progress = 0;
@@ -13,22 +15,25 @@ public class NovelController : MonoBehaviour
     void Awake() {
         instance = this;
     }
-
     int activeGameFileNumber = 0;
     GAMEFILE activeGameFile = null;
     string activeChapterFile = "";
     void Start()
     {
-        LoadGameFile(1);
+        switch(curMode){
+            case(mode.NEW):
+                activeGameFile = new GAMEFILE();
+                LoadChapterFile("test");
+                break;
+            case(mode.LOAD):
+                //LoadGameFile(number);
+                break;
+        }
     }
 
     public void LoadGameFile(int gameFileNumber){
         activeGameFileNumber = gameFileNumber;
         string filePath = FileManager.savPath + "Resources/gameFiles/" + gameFileNumber.ToString() + ".txt";
-
-        if(!System.IO.File.Exists(filePath)){
-            FileManager.SaveJSON(filePath, new GAMEFILE());
-        }
 
         activeGameFile = FileManager.LoadJSON<GAMEFILE>(filePath);
 
@@ -36,8 +41,6 @@ public class NovelController : MonoBehaviour
         activeChapterFile = activeGameFile.chapterName;
         cachedLastSpeaker = activeGameFile.cachedLastSpeaker;
         
-        DialogueSystem.instance.Open(activeGameFile.currentTextSystemSpeakerDisplayText, activeGameFile.currentTextSystemDisplayText);
-
         for(int i = 0; i < activeGameFile.charactersInScene.Count; i++){
             GAMEFILE.CHARACTERDATA data = activeGameFile.charactersInScene[i];
             Character character = CharacterManager.instance.GetCharacter(data.characterName, data.enabled);
@@ -51,21 +54,28 @@ public class NovelController : MonoBehaviour
 
         if(activeGameFile.background != null)
             BackgroundManager.instance.background.SetTexture(activeGameFile.background);
+        else
+            BackgroundManager.instance.background.SetTexture(null);
         if(activeGameFile.cinematic != null)
             BackgroundManager.instance.cinematic.SetTexture(activeGameFile.cinematic);
+        else
+            BackgroundManager.instance.cinematic.SetTexture(null);
         if(activeGameFile.foreground != null)
             BackgroundManager.instance.foreground.SetTexture(activeGameFile.foreground);
+        else
+            BackgroundManager.instance.foreground.SetTexture(null);
 
-        if(activeGameFile.music != null){
+        if(activeGameFile.music != null)
             AudioManager.instance.PlayBGM(activeGameFile.music);
-        }
+        else
+            AudioManager.instance.PlayBGM(null);
 
         if(handlingChapterFile != null){
             StopCoroutine(handlingChapterFile);
         }
-        handlingChapterFile = StartCoroutine(HandlingChapterFile());
-
-        chapterProgress = activeGameFile.chapterProgress;
+        chapterProgress = activeGameFile.chapterProgress-1;
+        handlingChapterFile = StartCoroutine(HandlingChapterFile(chapterProgress));
+        Next();
     }
 
     public void SaveGameFile(){
@@ -75,8 +85,7 @@ public class NovelController : MonoBehaviour
         activeGameFile.chapterProgress = chapterProgress;
         activeGameFile.cachedLastSpeaker = cachedLastSpeaker;
 
-        activeGameFile.currentTextSystemSpeakerDisplayText = DialogueSystem.instance.speakerNameText.text;
-        activeGameFile.currentTextSystemDisplayText = DialogueSystem.instance.speechText.text;
+        activeGameFile.currentTextSystemDisplayText = data[chapterProgress-1];
         for(int i = 0; i < CharacterManager.instance.characters.Count; i++){
             Character character = CharacterManager.instance.characters[i];
             GAMEFILE.CHARACTERDATA data = new GAMEFILE.CHARACTERDATA(character);
@@ -104,7 +113,7 @@ public class NovelController : MonoBehaviour
             SaveGameFile();
         }
         if(Input.GetKeyDown(KeyCode.L)){
-            LoadGameFile(1);
+            LoadGameFile(0);
         }
     }
 
@@ -129,10 +138,11 @@ public class NovelController : MonoBehaviour
     public bool isHandlingChapterFile {get{return handlingChapterFile != null;}}
     Coroutine handlingChapterFile = null;
     [HideInInspector] public int chapterProgress = 0;
-    IEnumerator HandlingChapterFile(){
-        chapterProgress = 0;
+    IEnumerator HandlingChapterFile(int progress = 0){
+        chapterProgress = progress;
 
         while(chapterProgress < data.Count){
+
             if(_next){
                 string line = data[chapterProgress];
 

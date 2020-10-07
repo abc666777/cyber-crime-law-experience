@@ -1,1 +1,0 @@
-{"chapterName":"test","chapterProgress":3,"cachedLastSpeaker":"narrator","currentTextSystemSpeakerDisplayText":"","currentTextSystemDisplayText":"this test trigger background","background":{"instanceID":0},"cinematic":{"instanceID":12586},"foreground":{"instanceID":0},"music":{"instanceID":0},"charactersInScene":[]}

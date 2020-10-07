@@ -8,7 +8,6 @@ public class GAMEFILE
     public string chapterName;
     public int chapterProgress;
     public string cachedLastSpeaker = "";
-    public string currentTextSystemSpeakerDisplayText = "";
     public string currentTextSystemDisplayText = "";
 
     public Texture background = null;
