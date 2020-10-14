@@ -15,6 +15,7 @@ public class Panel : MonoBehaviour
 
     public void BackToMainMenu(){
         SceneManager.instance.LoadScene("Start");
+        
     }
 
     public void SetTitle(string title){

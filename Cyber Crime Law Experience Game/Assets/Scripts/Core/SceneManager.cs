@@ -22,9 +22,4 @@ public class SceneManager : MonoBehaviour
     public void LoadScene(string sceneName){
         AsyncOperation opt = UnitySceneManager.LoadSceneAsync(sceneName);
     }
-
-    public void NewGame(){
-        PlayerPrefs.SetString("Load Mode", "new");
-        AsyncOperation opt = UnitySceneManager.LoadSceneAsync("Gameplay");
-    }
 }
