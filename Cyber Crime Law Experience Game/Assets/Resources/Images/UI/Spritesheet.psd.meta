@@ -25,7 +25,7 @@ TextureImporter:
     second: deleteButton
   - first:
       213: 8633881525917383573
-    second: Spritesheet_0
+    second: SaveLoadButton
   - first:
       213: -8804304656956064809
     second: SmallButton
@@ -50,6 +50,12 @@ TextureImporter:
   - first:
       213: 6152864186200643485
     second: StartIcon
+  - first:
+      213: -4000982346974253384
+    second: Button
+  - first:
+      213: 8633881525917383573
+    second: BackToMenuIcon
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -79,7 +85,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -111,7 +117,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -123,7 +129,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -255,6 +261,69 @@ TextureImporter:
       bones: []
       spriteID: 8f4d7770c63fe9a42b03343e71dac790
       internalID: 6152864186200643485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SaveLoadButton
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 768
+        width: 695
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd4b2478806b1ae46aa71b2fcb720243
+      internalID: 8633881525917383573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 618
+        width: 128
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8847c58b3750ed44e829d896dc404582
+      internalID: -4000982346974253384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackToMenuIcon
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 620
+        width: 142
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27e84ba8837803e4ca06ec838eb9cf9c
+      internalID: 8633881525917383573
       vertices: []
       indices: 
       edges: []
