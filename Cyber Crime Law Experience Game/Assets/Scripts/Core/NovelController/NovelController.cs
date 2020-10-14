@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class NovelController : MonoBehaviour
 {   
-    private enum mode {LOAD, NEW};
-    private mode curMode = mode.NEW;
     public static NovelController instance;
     List<string> data = new List<string>();
     //int progress = 0;
@@ -20,13 +18,14 @@ public class NovelController : MonoBehaviour
     string activeChapterFile = "";
     void Start()
     {
-        switch(curMode){
-            case(mode.NEW):
+        //set mode
+        switch(PlayerPrefs.GetString("Load Mode")){
+            case("new"):
                 activeGameFile = new GAMEFILE();
                 LoadChapterFile("test");
                 break;
-            case(mode.LOAD):
-                //LoadGameFile(number);
+            case("load"):
+                LoadGameFile(PlayerPrefs.GetInt("Load File"));
                 break;
         }
     }
@@ -78,12 +77,13 @@ public class NovelController : MonoBehaviour
         Next();
     }
 
-    public void SaveGameFile(){
-        string filePath = FileManager.savPath + "Resources/gameFiles/" + activeGameFileNumber.ToString() + ".txt";
+    public void SaveGameFile(float saveIndex){
+        string filePath = FileManager.savPath + "Resources/gameFiles/" + saveIndex.ToString() + ".txt";
 
         activeGameFile.chapterName = activeChapterFile;
         activeGameFile.chapterProgress = chapterProgress;
         activeGameFile.cachedLastSpeaker = cachedLastSpeaker;
+        activeGameFile.currentDate = System.DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss",new System.Globalization.CultureInfo("th-TH"));
 
         activeGameFile.currentTextSystemDisplayText = data[chapterProgress-1];
         for(int i = 0; i < CharacterManager.instance.characters.Count; i++){
@@ -97,7 +97,6 @@ public class NovelController : MonoBehaviour
         activeGameFile.foreground = b.foreground.activeImage != null ? b.foreground.activeImage.texture : null;
 
         activeGameFile.music = AudioManager.activeSong != null ? AudioManager.activeSong.clip : null;
-
         FileManager.SaveJSON(filePath, activeGameFile);
     }
 
@@ -110,7 +109,7 @@ public class NovelController : MonoBehaviour
         }
 
         if(Input.GetKeyDown(KeyCode.S)){
-            SaveGameFile();
+            SaveGameFile(0);
         }
         if(Input.GetKeyDown(KeyCode.L)){
             LoadGameFile(0);

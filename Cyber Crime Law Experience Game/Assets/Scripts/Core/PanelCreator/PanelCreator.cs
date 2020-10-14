@@ -14,4 +14,8 @@ public class PanelCreator : MonoBehaviour
     public void InstantiatePanel(int index){
         GameObject.Instantiate(panels[index]);
     }
+
+    public void SetTitle(string title){
+        PlayerPrefs.SetString("Scene Title", title);
+    }
 }

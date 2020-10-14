@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Globalization;
 
 [System.Serializable]
 public class GAMEFILE
@@ -9,6 +10,7 @@ public class GAMEFILE
     public int chapterProgress;
     public string cachedLastSpeaker = "";
     public string currentTextSystemDisplayText = "";
+    public string currentDate;
 
     public Texture background = null;
     public Texture cinematic = null;
@@ -22,7 +24,7 @@ public class GAMEFILE
         this.chapterName = "test";
         this.chapterProgress = 0;
         this.cachedLastSpeaker = "";
-
+        this.currentDate = System.DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss",new CultureInfo("th-TH"));
         charactersInScene = new List<CHARACTERDATA>();
     }
 

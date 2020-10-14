@@ -1,0 +1,1 @@
+{"chapterName":"test","chapterProgress":1,"cachedLastSpeaker":"narrator","currentTextSystemDisplayText":"narrator \"this is a test script\"","currentDate":"14/10/2563 16:32:33","background":{"instanceID":0},"cinematic":{"instanceID":0},"foreground":{"instanceID":0},"music":{"instanceID":0},"charactersInScene":[]}
