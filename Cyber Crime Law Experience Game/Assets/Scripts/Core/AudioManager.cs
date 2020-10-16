@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
+
+    [HideInInspector] private AudioMixer audioMixer;
     public static AudioManager instance;
     [HideInInspector]
     public static Song activeSong = null;
@@ -13,21 +16,25 @@ public class AudioManager : MonoBehaviour
     public bool smoothSongTransition;
     // Start is called before the first frame update
     void Awake() {
-        
+        audioMixer = Resources.Load<AudioMixer>("Audio/Mixer/Mixer");
         if(instance == null){
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else{
             DestroyImmediate(gameObject);
-        }
+        }  
     }
 
+    void Start() {
+        
+    }
     public void PlaySFX(AudioClip effect, float volume = 1f , float pitch = 1f){
         AudioSource source = CreateNewSource(string.Format("SFX [{0}]", effect.name));
         source.clip = effect;
         source.volume = volume;
         source.pitch = pitch;
+        source.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SFX")[0];
         source.Play();
 
         Destroy(source.gameObject, effect.length);
@@ -54,36 +61,36 @@ public class AudioManager : MonoBehaviour
     }
 
 
-    IEnumerator VolumeLeveling(){
-        while(TransitionSongs()){
-            yield return new WaitForEndOfFrame(); 
-        }
-    }
-
-    bool TransitionSongs(){
-        bool anyValueChanged = false;
-
-        float speed = songTransition * Time.deltaTime;
-        for(int i = allSongs.Count - 1; i >= 0; i--){
-            Song song = allSongs[i];
-
-            if(song == activeSong){
-                if(song.volume < song.maxVolume){
-                    song.volume = smoothSongTransition ? Mathf.Lerp(song.volume, song.maxVolume, speed) : Mathf.MoveTowards(song.volume, song.maxVolume, speed);
-                    anyValueChanged = true;
-                }
-                
+        IEnumerator VolumeLeveling(){
+            while(TransitionSongs()){
+                yield return new WaitForEndOfFrame(); 
             }
-            else{
-                if(song.volume > 0){
-                    song.volume = smoothSongTransition ? Mathf.Lerp(song.volume, 0, speed) : Mathf.MoveTowards(song.volume, 0, speed);
-                    anyValueChanged = true;
-                }
+        }
+
+        bool TransitionSongs(){
+            bool anyValueChanged = false;
+
+            float speed = songTransition * Time.deltaTime;
+            for(int i = allSongs.Count - 1; i >= 0; i--){
+                Song song = allSongs[i];
+
+                if(song == activeSong){
+                    if(song.volume < song.maxVolume){
+                        song.volume = smoothSongTransition ? Mathf.Lerp(song.volume, song.maxVolume, speed) : Mathf.MoveTowards(song.volume, song.maxVolume, speed);
+                        anyValueChanged = true;
+                    }
                 
+                }
                 else{
-                    allSongs.RemoveAt(i) ;
-                    song.Destroy();
-                    continue;
+                    if(song.volume > 0){
+                        song.volume = smoothSongTransition ? Mathf.Lerp(song.volume, 0, speed) : Mathf.MoveTowards(song.volume, 0, speed);
+                        anyValueChanged = true;
+                    }
+                
+                    else{
+                        allSongs.RemoveAt(i) ;
+                        song.Destroy();
+                        continue;
                 }
             }
         }
@@ -102,8 +109,8 @@ public class AudioManager : MonoBehaviour
         public AudioSource source;
         public AudioClip clip {get{return source.clip;} set{source.clip = value;}}
         public float maxVolume = 1f;
+        [HideInInspector] private AudioMixer audioMixer = Resources.Load<AudioMixer>("Audio/Mixer/Mixer");
        
-
         public Song(AudioClip clip, float maxVolume, float pitch, float startingVolume, bool playOnStart, bool loop){
             source = AudioManager.CreateNewSource(string.Format("BGM [{0}]", clip.name));
             source.clip = clip;
@@ -111,6 +118,7 @@ public class AudioManager : MonoBehaviour
             this.maxVolume = maxVolume;
             source.pitch = pitch;
             source.loop = loop;
+            source.outputAudioMixerGroup = audioMixer.FindMatchingGroups("BGM")[0];
 
             AudioManager.allSongs.Add(this);
 

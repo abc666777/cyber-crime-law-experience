@@ -56,6 +56,9 @@ TextureImporter:
   - first:
       213: 8633881525917383573
     second: BackToMenuIcon
+  - first:
+      213: -626980917436551411
+    second: SliderHandler
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -324,6 +327,27 @@ TextureImporter:
       bones: []
       spriteID: 27e84ba8837803e4ca06ec838eb9cf9c
       internalID: 8633881525917383573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SliderHandler
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 620
+        width: 60
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1da62641aea247e48be362d40bb4ba18
+      internalID: -626980917436551411
       vertices: []
       indices: 
       edges: []
