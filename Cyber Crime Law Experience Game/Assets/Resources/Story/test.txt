@@ -1,13 +1,13 @@
-narrator "this is a test script"
+narrator "[playBGM(null)] this is a test script"
 "this is also a test script"
 "this test trigger background[setCinematic(MainMenu)]{w 3} this test trigger [playSFX(test3)]music"
 "[setCinematic(null)]"
 choice
 {
   "YEET"
-    "YEET"
+    "YEET [addMilestone(yeet)]"
   "NO"
-    "NO YEET"
+    "NO YEET [addMilestone(no yeet)]"
 }
 
 เอก "this is past yeet."

@@ -19,6 +19,7 @@ public class Panel : MonoBehaviour
     }
 
     public void SetTitle(string title){
-        panelTitle.text = title;
+        if(panelTitle != null)
+            panelTitle.text = title;
     }
 }

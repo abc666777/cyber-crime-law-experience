@@ -6,6 +6,8 @@ using UnitySceneManager = UnityEngine.SceneManagement.SceneManager;
 public class SceneManager : MonoBehaviour
 {
     public static SceneManager instance;
+    private Coroutine loadScene = null;
+    private bool isLoadScene{get{return loadScene != null;}}
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,21 @@ public class SceneManager : MonoBehaviour
     }
 
     public void LoadScene(string sceneName){
+        if(isLoadScene){
+            StopCoroutine(loadScene);
+        }
+        loadScene = StartCoroutine(_LoadScene(sceneName));
+        
+    }
+
+    IEnumerator _LoadScene(string sceneName){
+        Instantiate(Resources.LoadAll<GameObject>("Prefabs/Panel")[2]);
+        yield return new WaitForSeconds(7f);
         AsyncOperation opt = UnitySceneManager.LoadSceneAsync(sceneName);
+        while(!opt.isDone){
+            yield return null;
+        }
+        StopCoroutine(loadScene);
+        loadScene = null;
     }
 }

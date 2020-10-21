@@ -15,19 +15,19 @@ public class SettingMenu : MonoBehaviour
     } 
     void Start() {
         if(PlayerPrefs.HasKey("Master Volume")){
-            _MasterMixer.SetFloat("MasterVolume", PlayerPrefs.GetFloat("Master Volume"));
+            _MasterMixer.SetFloat("MasterVolume", Mathf.Log10(PlayerPrefs.GetFloat("Master Volume") * 20));
         }
         else{
             PlayerPrefs.SetFloat("Master Volume", 1f);
         }
         if(PlayerPrefs.HasKey("Background Music Volume")){
-            _MasterMixer.SetFloat("BGMVolume", PlayerPrefs.GetFloat("Background Music Volume"));
+            _MasterMixer.SetFloat("BGMVolume", Mathf.Log10(PlayerPrefs.GetFloat("Background Music Volume")) * 20);
         }
         else{
             PlayerPrefs.SetFloat("Background Music Volume", 1f);
         }
         if(PlayerPrefs.HasKey("Sound Effect Volume")){
-            _MasterMixer.SetFloat("SFXVolume", PlayerPrefs.GetFloat("Sound Effect Volume"));
+            _MasterMixer.SetFloat("SFXVolume", Mathf.Log10(PlayerPrefs.GetFloat("Sound Effect Volume")) * 20);
         }
         else{
             PlayerPrefs.SetFloat("Sound Effect Volume", 1f);

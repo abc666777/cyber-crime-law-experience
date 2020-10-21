@@ -15,6 +15,7 @@ public class NovelController : MonoBehaviour
     }
     int activeGameFileNumber = 0;
     GAMEFILE activeGameFile = null;
+    GAMEDATA activeGameMilestone = null;
     string activeChapterFile = "";
     void Start()
     {
@@ -27,6 +28,14 @@ public class NovelController : MonoBehaviour
             case("load"):
                 LoadGameFile(PlayerPrefs.GetInt("Load File"));
                 break;
+        }
+        string milestoneFilePath = FileManager.dataPath + "milestone" + FileManager.fileExtension;
+        if(System.IO.File.Exists(milestoneFilePath)){
+            activeGameMilestone = FileManager.LoadJSON<GAMEDATA>(milestoneFilePath);
+        }
+        else{
+            activeGameMilestone = new GAMEDATA();
+            FileManager.SaveJSON(milestoneFilePath, activeGameMilestone);
         }
     }
 
@@ -311,6 +320,9 @@ public class NovelController : MonoBehaviour
             case "faceRight":
                 Command_FaceRight(data[1]);
                 break;
+            case "addMilestone":
+                Command_AddMilestone(data[1]);
+                break;
             case "enter":
                 Command_Enter(data[1]);
                 break;
@@ -321,6 +333,15 @@ public class NovelController : MonoBehaviour
                 Command_Load(data[1]);
                 break;
         }
+    }
+
+    void Command_AddMilestone(string data){
+        if(activeGameMilestone.milestones.Exists(x => x == data)){
+            return;
+        }
+        string pth= FileManager.dataPath + "milestone" + FileManager.fileExtension;
+        activeGameMilestone.milestones.Add(data);
+        FileManager.SaveJSON(pth, activeGameMilestone);
     }
 
     void Command_Load(string chapterName){

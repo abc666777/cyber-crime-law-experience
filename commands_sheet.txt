@@ -82,6 +82,9 @@ including filenames, shouldn't contain spaces.
   2. transition smoothing                                                       ex: _____(เอก,false)
   (order is not important, but name must always come first)                     ex: _____(เอก,1.0,false)
 
+- Add Milestone
+  addMilestone(stringMilestone)                                                 ex: addMilestone(part 1);
+
 - choice format
 choice                                                                          ex: choice
 {                                                                               {

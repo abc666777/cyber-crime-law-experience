@@ -59,6 +59,9 @@ TextureImporter:
   - first:
       213: -626980917436551411
     second: SliderHandler
+  - first:
+      213: -207198404163365312
+    second: LoadingSprite
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -340,7 +343,7 @@ TextureImporter:
         width: 60
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -348,6 +351,27 @@ TextureImporter:
       bones: []
       spriteID: 1da62641aea247e48be362d40bb4ba18
       internalID: -626980917436551411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoadingSprite
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 620
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ca6d5e67d4fd7d478f40d20c17c9914
+      internalID: -207198404163365312
       vertices: []
       indices: 
       edges: []
