@@ -13,6 +13,11 @@ public class NovelController : MonoBehaviour
     void Awake() {
         instance = this;
     }
+    
+    void OnDestroy() {
+        Time.timeScale = 1f;        
+    }
+
     int activeGameFileNumber = 0;
     GAMEFILE activeGameFile = null;
     GAMEDATA activeGameMilestone = null;
@@ -135,13 +140,32 @@ public class NovelController : MonoBehaviour
         }
         handlingChapterFile = StartCoroutine(HandlingChapterFile());
 
-        Next();
+        _next = true;
     }
 
     bool _next = false;
+    bool _auto = false;
+    bool _skip = false;
 
     public void Next(){
+        _auto = false;
+        _skip = false;
         _next = true;
+    }
+
+    public void Auto(){
+        _auto = !_auto;
+    }
+
+    public void Skip(){
+        _auto = true;
+        _skip = !_skip;
+        SetTimeFrame();
+    }
+
+    public void SetTimeFrame(){
+        if(_skip) Time.timeScale = 50f;
+        else Time.timeScale = 1f;
     }
     public bool isHandlingChapterFile {get{return handlingChapterFile != null;}}
     Coroutine handlingChapterFile = null;
@@ -150,6 +174,16 @@ public class NovelController : MonoBehaviour
         chapterProgress = progress;
 
         while(chapterProgress < data.Count){
+            Debug.Log(data[chapterProgress].Length);
+            if(_auto){
+                if(_skip){
+                    _next = true;
+                }
+                else{
+                    yield return new WaitForSeconds(5f);
+                    _next = true;
+                }
+            }
 
             if(_next){
                 string line = data[chapterProgress];
@@ -198,6 +232,8 @@ public class NovelController : MonoBehaviour
                 break;
         }
         if(choices.Count > 0){
+            _skip = false;
+            _auto = false;
             ChoiceScreen.Show(choices.ToArray());
             yield return new WaitForEndOfFrame();
             while(ChoiceScreen.isWaitingForChoiceToBeMade)

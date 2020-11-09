@@ -31,7 +31,7 @@ public class SceneManager : MonoBehaviour
 
     IEnumerator _LoadScene(string sceneName){
         Instantiate(Resources.LoadAll<GameObject>("Prefabs/Panel")[2]);
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(3f);
         AsyncOperation opt = UnitySceneManager.LoadSceneAsync(sceneName);
         while(!opt.isDone){
             yield return null;

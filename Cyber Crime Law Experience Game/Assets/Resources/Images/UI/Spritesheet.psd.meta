@@ -62,6 +62,9 @@ TextureImporter:
   - first:
       213: -207198404163365312
     second: LoadingSprite
+  - first:
+      213: 446436880185847349
+    second: BackToMenuWhite
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -364,7 +367,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -372,6 +375,27 @@ TextureImporter:
       bones: []
       spriteID: 3ca6d5e67d4fd7d478f40d20c17c9914
       internalID: -207198404163365312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BackToMenuWhite
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 467
+        width: 142
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcc7aa4e64947f149902b5cf8b81e4aa
+      internalID: 446436880185847349
       vertices: []
       indices: 
       edges: []

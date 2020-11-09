@@ -1,16 +1,15 @@
-narrator "[playBGM(null)] this is a test script"
-"this is also a test script"
-"this test trigger background[setCinematic(MainMenu)]{w 3} this test trigger [playSFX(test3)]music"
-"[setCinematic(null)]"
+narrator "[playBGM(null)] นี่คือการทดสอบ"
+"นี่ก็เป็นการทดสอบ"
+"นี่เป็นการทดสอบพื้นหลัง[setBackground(MainMenu)]{w 3} ทดสอบ [playSFX(test3)]เสียงประกอบ"
 choice
 {
-  "YEET"
-    "YEET [addMilestone(yeet)]"
-  "NO"
-    "NO YEET [addMilestone(no yeet)]"
+  "ทางเลือกที่ 1"
+    "ทางเลือกที่ 1 [addMilestone(yeet)]"
+  "ทางเลือกที่ 2"
+    "ทางเลือกที่ 2 [addMilestone(no yeet)]"
 }
 
-เอก "this is past yeet."
+เอก "เลือกทางเลือกเสร็จแล้ว."
 "[move(เอก,0,1)]"
 "[move(เอก,1,1)]"
 
