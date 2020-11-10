@@ -106,7 +106,7 @@ public class FileManager : MonoBehaviour
 		print("Saved " + i.ToString() + " lines to file [" +filePath+"]");
 	}
 
-	static List<string> ArrayToList(string[] array, bool removeBlankLines = true)
+	public static List<string> ArrayToList(string[] array, bool removeBlankLines = true)
 	{
 		List<string> list = new List<string>();
 		for(int i = 0; i < array.Length; i++)

@@ -50,7 +50,9 @@ public class NovelController : MonoBehaviour
 
         activeGameFile = FileManager.LoadJSON<GAMEFILE>(filePath);
 
-        data = FileManager.LoadFile("Assets/Resources/Story/" + activeGameFile.chapterName);
+        var textFile = Resources.Load<TextAsset>("Story/" + activeGameFile.chapterName) as TextAsset;
+        data = FileManager.ArrayToList(textFile.text.Split('\n'));
+        //data = FileManager.LoadFile("Assets/Resources/Story/" + activeGameFile.chapterName);
         activeChapterFile = activeGameFile.chapterName;
         cachedLastSpeaker = activeGameFile.cachedLastSpeaker;
         
@@ -132,7 +134,9 @@ public class NovelController : MonoBehaviour
 
     public void LoadChapterFile(string fileName){
         activeChapterFile = fileName;
-        data = FileManager.LoadFile("Assets/Resources/Story/" + fileName);
+        var textFile = Resources.Load<TextAsset>("Story/" + fileName) as TextAsset;
+        data = FileManager.ArrayToList(textFile.text.Split('\n'));
+        //data = FileManager.LoadFile("Assets/Resources/Story/" + fileName);
         cachedLastSpeaker = "";
 
         if(handlingChapterFile != null){
@@ -174,7 +178,6 @@ public class NovelController : MonoBehaviour
         chapterProgress = progress;
 
         while(chapterProgress < data.Count){
-            Debug.Log(data[chapterProgress].Length);
             if(_auto){
                 if(_skip){
                     _next = true;
@@ -216,10 +219,11 @@ public class NovelController : MonoBehaviour
 
         while(true){
             chapterProgress++;
-            line = data[chapterProgress];
+            line = data[chapterProgress].Remove(data[chapterProgress].Length - 1);
 
-            if(line == "{")
+            if(line == "{"){
                 continue;
+            }
 
             line = line.Replace("    ","");
 

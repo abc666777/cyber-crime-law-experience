@@ -4,9 +4,9 @@ narrator "[playBGM(null)] นี่คือการทดสอบ"
 choice
 {
   "ทางเลือกที่ 1"
-    "ทางเลือกที่ 1 [addMilestone(yeet)]"
+    "คุณได้เลือกทางเลือกที่ 1 [addMilestone(yeet)]"
   "ทางเลือกที่ 2"
-    "ทางเลือกที่ 2 [addMilestone(no yeet)]"
+    "คุณได้เลือกทางเลือกที่ 2 [addMilestone(no yeet)]"
 }
 
 เอก "เลือกทางเลือกเสร็จแล้ว."
