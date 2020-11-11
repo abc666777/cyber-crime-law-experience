@@ -13,10 +13,6 @@ public class NovelController : MonoBehaviour
     void Awake() {
         instance = this;
     }
-    
-    void OnDestroy() {
-        Time.timeScale = 1f;        
-    }
 
     int activeGameFileNumber = 0;
     GAMEFILE activeGameFile = null;

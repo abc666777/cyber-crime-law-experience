@@ -22,6 +22,7 @@ public class SceneManager : MonoBehaviour
     }
 
     public void LoadScene(string sceneName){
+        Time.timeScale = 1f;
         if(isLoadScene){
             StopCoroutine(loadScene);
         }
