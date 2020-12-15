@@ -16,5 +16,6 @@ public class ArchiveButton : MonoBehaviour
             return;
         }
         showDataText.text = "ไม่ทราบข้อมูล เนื่องจากท่านยังไม่ได้เรียนรู้ข้อมูลนี้";
+       
     }
 }

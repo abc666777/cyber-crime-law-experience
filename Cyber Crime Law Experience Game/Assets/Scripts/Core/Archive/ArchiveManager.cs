@@ -11,7 +11,9 @@ public class ArchiveManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        data = FileManager.LoadFile("Assets/Resources/Data/article.txt");
+        var textFile = Resources.Load<TextAsset>("Data/article") as TextAsset;
+        data = FileManager.ArrayToList(textFile.text.Split('\n'));
+        //data = FileManager.LoadFile("Assets/Resources/Data/article.txt");
         string milestoneFilePath = FileManager.dataPath + "milestone" + FileManager.fileExtension;
         if(System.IO.File.Exists(milestoneFilePath)){
             milestone = FileManager.LoadJSON<GAMEDATA>(milestoneFilePath);

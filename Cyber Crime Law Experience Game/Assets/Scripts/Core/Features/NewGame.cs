@@ -10,7 +10,7 @@ public class NewGame : MonoBehaviour
         _MasterMixer = Resources.Load<AudioMixer>("Audio/Mixer/Mixer");
     } 
     void Start() {
-        AudioManager.instance.PlayBGM(Resources.Load<AudioClip>("Audio/BGM/test2") as AudioClip);
+        //AudioManager.instance.PlayBGM(Resources.Load<AudioClip>("Audio/BGM/test2") as AudioClip); Change to something new.
         if(PlayerPrefs.HasKey("Master Volume")){
             _MasterMixer.SetFloat ("MasterVolume", Mathf.Log10(PlayerPrefs.GetFloat("Master Volume")) * 20);
         }

@@ -15,7 +15,7 @@ public class SettingMenu : MonoBehaviour
     } 
     void Start() {
         if(PlayerPrefs.HasKey("Master Volume")){
-            _MasterMixer.SetFloat("MasterVolume", Mathf.Log10(PlayerPrefs.GetFloat("Master Volume") * 20));
+            _MasterMixer.SetFloat("MasterVolume", Mathf.Log10(PlayerPrefs.GetFloat("Master Volume")) * 20);
         }
         else{
             PlayerPrefs.SetFloat("Master Volume", 1f);
