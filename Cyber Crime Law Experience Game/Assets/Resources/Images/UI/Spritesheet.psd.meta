@@ -65,6 +65,21 @@ TextureImporter:
   - first:
       213: 446436880185847349
     second: BackToMenuWhite
+  - first:
+      213: 7115881164874570469
+    second: SkipIcon_GameFunction
+  - first:
+      213: -2324799059781737162
+    second: AutoIcon_GameFunction
+  - first:
+      213: 1896387317234644079
+    second: SaveIcon_GameFunction
+  - first:
+      213: -4726897035479922953
+    second: LoadIcon_GameFunction
+  - first:
+      213: -1893965010974302590
+    second: SettingIcon_GameFunction
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -388,7 +403,7 @@ TextureImporter:
         width: 142
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -396,6 +411,111 @@ TextureImporter:
       bones: []
       spriteID: fcc7aa4e64947f149902b5cf8b81e4aa
       internalID: 446436880185847349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkipIcon_GameFunction
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 271
+        width: 127
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7203e1c126881a24390b0e06ff31c553
+      internalID: 7115881164874570469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AutoIcon_GameFunction
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 271
+        width: 88
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 061e6ea790f93914687568fac94e5030
+      internalID: -2324799059781737162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SaveIcon_GameFunction
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 271
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e328dddd1f850cf43afdffbb003e8533
+      internalID: 1896387317234644079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: LoadIcon_GameFunction
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 271
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0fe00841bda47442a11bd4b2a41d32b
+      internalID: -4726897035479922953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SettingIcon_GameFunction
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 271
+        width: 162
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d220d026529fe80408c70d15783c0341
+      internalID: -1893965010974302590
       vertices: []
       indices: 
       edges: []

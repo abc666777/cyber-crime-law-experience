@@ -234,6 +234,7 @@ public class NovelController : MonoBehaviour
         if(choices.Count > 0){
             _skip = false;
             _auto = false;
+            Time.timeScale = 1f;
             ChoiceScreen.Show(choices.ToArray());
             yield return new WaitForEndOfFrame();
             while(ChoiceScreen.isWaitingForChoiceToBeMade)
@@ -365,7 +366,7 @@ public class NovelController : MonoBehaviour
             case "exit":
                 Command_Exit(data[1]);
                 break;
-            case "Load":
+            case "load":
                 Command_Load(data[1]);
                 break;
         }
@@ -412,6 +413,7 @@ public class NovelController : MonoBehaviour
         string imageName = parameters[0];
         string transName = parameters[1];
         Texture tex = imageName == "null" ? null : Resources.Load("Images/UI/Backdrops/" + imageName) as Texture;
+        Debug.Log(Resources.Load("Images/UI/Backdrops/" + imageName) as Texture);
         Texture transTex = Resources.Load("Images/TransitionEffects/" + transName) as Texture;
 
         float speed = 2f;

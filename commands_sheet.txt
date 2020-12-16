@@ -4,6 +4,7 @@ including filenames, shouldn't contain spaces.
 - Make a character speak
   characterName "dialogue"                                                      ex: เอก "Hello World".
   No name before dialogue means use last speaker.                               ex: "This is a test server."
+  use "narrator" when you want no one to speak.                                 ex: narrator "Hello World".
 #commands in dialogue
   {} symbols identify and expectation for user input and what to do when
   receiving it. Or another form of input.
@@ -69,7 +70,7 @@ including filenames, shouldn't contain spaces.
   2. transition smoothing                                                       ex: setExpression(เอก,sad,1f,false)
   (order is important and must either have only 1 or both)                      ex: setExpression(เอก,sad,1f,false)
 
-- Flip a character
+- Flip a character, default sprite must always facing left.
   flip(characterName)                                                           ex: flip(เอก)
   faceLeft(characterName)                                                       ex: faceLeft(เอก)
   faceRight(characterName)                                                      ex: faceRight(เอก)
@@ -83,7 +84,7 @@ including filenames, shouldn't contain spaces.
   (order is not important, but name must always come first)                     ex: _____(เอก,1.0,false)
 
 - Add Milestone
-  addMilestone(stringMilestone)                                                 ex: addMilestone(part 1);
+  addMilestone(stringMilestone)                                                 ex: addMilestone(part 1)
 
 - choice format
 choice                                                                          ex: choice
