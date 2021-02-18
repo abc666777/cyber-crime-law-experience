@@ -1,2 +1,3 @@
 narrator "[faceLeft(คน-1)][move(คน-1,-1,0,0.4)][move(คน-2,-1,0,0.4)][faceLeft(คุณ)][move(คุณ,2,0,0.4)]คุณเดินจากไป โดยไม่สนใจสิ่งที่เกิดขึ้น"
-narrator "[transBackground(null,leftRight)]จบ demo"
+"[transBackground(null,leftRight)]จบ demo"
+"[ending()]"

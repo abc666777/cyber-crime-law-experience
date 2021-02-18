@@ -360,6 +360,9 @@ public class NovelController : MonoBehaviour
             case "addMilestone":
                 Command_AddMilestone(data[1]);
                 break;
+            case "ending":
+                Command_TriggerEndScreen();
+                break;
             case "enter":
                 Command_Enter(data[1]);
                 break;
@@ -564,5 +567,9 @@ public class NovelController : MonoBehaviour
         }
         Character c = CharacterManager.instance.GetCharacter(character);
         c.FadeOut(speed, smooth);
+    }
+
+    void Command_TriggerEndScreen(){
+        SceneManager.instance.LoadScene("Result");
     }
 }

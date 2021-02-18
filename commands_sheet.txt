@@ -96,3 +96,5 @@ choice                                                                          
   "ChoiceX"                                                                     }
     "Dialogue"
 }
+
+- Call ending scene                                                             ex: ending()
