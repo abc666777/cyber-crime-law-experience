@@ -12,7 +12,7 @@ public class TestTextArchitect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        architect = new TextArchitect(say);
+        //architect = new TextArchitect(say);
     }
 
     // Update is called once per frame
@@ -21,7 +21,7 @@ public class TestTextArchitect : MonoBehaviour
         Debug.Log(text.text != say);
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            text.text = architect.currentText;
+            //text.text = architect.currentText;
             if (Input.GetKeyDown(KeyCode.Space) && text.text != say)
             {
                 text.text = say;

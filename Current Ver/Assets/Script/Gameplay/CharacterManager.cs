@@ -10,21 +10,26 @@ public class CharacterManager : MonoBehaviour
     private List<Character> characters = new List<Character>();
     private Dictionary<string, int> characterDictionary = new Dictionary<string, int>();
 
-    void Awake() {
+    void Awake()
+    {
         instance = this;
     }
-    public Character GetCharacter(string characterName, bool createCharacterIfDoesNotExist = true, bool enabledCreatedCharacterOnStart = true){
+    public Character GetCharacter(string characterName, bool createCharacterIfDoesNotExist = true, bool enabledCreatedCharacterOnStart = true)
+    {
         int index = -1;
-        if(characterDictionary.TryGetValue(characterName, out index)){
+        if (characterDictionary.TryGetValue(characterName, out index))
+        {
             return characters[index];
         }
-        else if(createCharacterIfDoesNotExist){
+        else if (createCharacterIfDoesNotExist)
+        {
             return CreateCharacter(characterName, enabledCreatedCharacterOnStart);
         }
         return null;
     }
-    public Character CreateCharacter(string characterName, bool enabledOnStart = true){
-        Character newCharacter = new Character (characterName, enabledOnStart);
+    public Character CreateCharacter(string characterName, bool enabledOnStart = true)
+    {
+        Character newCharacter = new Character(characterName, enabledOnStart);
 
         characterDictionary.Add(characterName, characters.Count);
         characters.Add(newCharacter);

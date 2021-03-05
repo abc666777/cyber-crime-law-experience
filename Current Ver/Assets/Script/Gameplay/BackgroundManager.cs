@@ -18,8 +18,9 @@ public class BackgroundManager : MonoBehaviour
     {
         public GameObject root;
         public GameObject newImageObjectRefererence;
-        private RawImage activeImage;
-        private List<RawImage> allImages = new List<RawImage>();
+        public RawImage activeImage;
+        public List<RawImage> allImages = new List<RawImage>();
+        public Coroutine specialTransitionCoroutine = null;
         public void SetTexture(Texture texture)
         {
             /*if(activeImage != null && activeImage.texture != null){ //NOT USE

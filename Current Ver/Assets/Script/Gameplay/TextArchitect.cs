@@ -1,29 +1,35 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
 public class TextArchitect
 {
-    public string currentText { get { return _currentText; } }
-    private string _currentText = "";
+    /// <summary>A dictionary keeping tabs on all architects present in a scene. Prevents multiple architects from influencing the same text object simultaneously.</summary>
+    private static Dictionary<TextMeshProUGUI, TextArchitect> activeArchitects = new Dictionary<TextMeshProUGUI, TextArchitect>();
 
-    public string preText;
+    private string preText;
     private string targetText;
-    private int charactersPerFrame = 1;
-    [Range(1f, 60f)]
-    private float speed = 1f;
-    private bool useEncapsulation = true;
+
+    public int charactersPerFrame = 1;
+    public float speed = 1f;
+
     public bool skip = false;
+
     public bool isConstructing { get { return buildProcess != null; } }
-
     Coroutine buildProcess = null;
-    public TextArchitect(string targetText, int charactersPerFrame = 1, float speed = 1f, bool useEncapsulation = true)
-    {
-        this.targetText = targetText;
-        this.charactersPerFrame = charactersPerFrame;
-        this.speed = speed;
-        this.useEncapsulation = useEncapsulation;
 
-        buildProcess = DialogueSystem.instance.StartCoroutine(Construction());
+    TextMeshProUGUI tmpro;
+
+    public TextArchitect(TextMeshProUGUI tmpro, string targetText, string preText = "", int charactersPerFrame = 1, float speed = 1f)
+    {
+        this.tmpro = tmpro;
+        this.targetText = targetText;
+        this.preText = preText;
+        this.charactersPerFrame = charactersPerFrame;
+        this.speed = Mathf.Clamp(speed, 1f, 300f);
+
+        Initiate();
     }
 
     public void Stop()
@@ -37,175 +43,100 @@ public class TextArchitect
 
     IEnumerator Construction()
     {
-        int runThisFrame = 0;
-        string[] speechAndTags = useEncapsulation ? TagManager.SplitByTags(targetText) : new string[1] { targetText };
-        _currentText = preText;
-        string curText = "";
-        for (int i = 0; i < speechAndTags.Length; i++)
+        int runsThisFrame = 0;
+
+        tmpro.text = "";
+        tmpro.text += preText;
+
+        tmpro.ForceMeshUpdate();
+        TMP_TextInfo inf = tmpro.textInfo;
+        int vis = inf.characterCount;
+
+        tmpro.text += targetText;
+
+        tmpro.ForceMeshUpdate();
+        inf = tmpro.textInfo;
+        int max = inf.characterCount;
+
+        tmpro.maxVisibleCharacters = vis;
+
+        int cpf = charactersPerFrame;
+
+        while (vis < max)
         {
-            string section = speechAndTags[i];
-            bool isTag = (i & 1) != 0;
-            if (isTag && useEncapsulation)
+            //allow skipping by increasing the characters per frame and the speed of occurance.
+            if (skip)
             {
-                curText = _currentText;
-                Encapsulated_Text encapsulation = new Encapsulated_Text(string.Format("<{0}>", section), speechAndTags, i);
-                while (!encapsulation.isDone)
-                {
-                    bool stepped = encapsulation.Step();
-
-                    _currentText = curText + encapsulation.displayText;
-
-                    if (stepped)
-                    {
-                        runThisFrame++;
-                        int maxRunsPerFrame = charactersPerFrame;
-                        if (runThisFrame == maxRunsPerFrame)
-                        {
-                            runThisFrame = 0;
-                            yield return new WaitForSeconds(0.01f * speed);
-                        }
-                    }
-                }
-                i = encapsulation.speechAndTagsArrayProgress + 1;
+                speed = 1;
+                cpf = charactersPerFrame < 5 ? 5 : charactersPerFrame + 3;
             }
-            else
+
+            //reveal a certain number of characters per frame.
+            while (runsThisFrame < cpf)
             {
-                for (int j = 0; j < section.Length; j++)
-                {
-                    _currentText += section[j];
-                    runThisFrame++;
-                    int maxRunsPerFrame = charactersPerFrame;
-                    if (runThisFrame == maxRunsPerFrame)
-                    {
-                        runThisFrame = 0;
-                        yield return new WaitForSeconds(0.01f * speed);
-                    }
-                }
+                vis++;
+                tmpro.maxVisibleCharacters = vis;
+                runsThisFrame++;
             }
+
+            //wait for the next available revelation time.
+            runsThisFrame = 0;
+            yield return new WaitForSeconds(0.01f * speed);
         }
+
+        //terminate the architect and remove it from the active log of architects.
+        Terminate();
+    }
+
+    void Initiate()
+    {
+        //check if an architect for this text object is already running. if it is, terminate it. Do not allow more than one architect to affect the same text object at once.
+        TextArchitect existingArchitect = null;
+        if (activeArchitects.TryGetValue(tmpro, out existingArchitect))
+            existingArchitect.Terminate();
+
+        buildProcess = DialogueSystem.instance.StartCoroutine(Construction());
+        activeArchitects.Add(tmpro, this);
+    }
+
+    /// <summary>
+    /// Terminate this architect. Stops the text generation process and removes it from the cache of all active architects.
+    /// </summary>
+    public void Terminate()
+    {
+        activeArchitects.Remove(tmpro);
+        if (isConstructing)
+            DialogueSystem.instance.StopCoroutine(buildProcess);
         buildProcess = null;
     }
 
-    private class Encapsulated_Text
+    public void ForceFinish()
     {
-        private string tag = "";
-        private string endingTag = "";
-        private string currentText = "";
-        private string targetText = "";
-        public string displayText { get { return _displayText; } }
-        private string _displayText = "";
-        private string[] allSpeechAndTagsArray;
-        public int speechAndTagsArrayProgress { get { return arrayProgress; } }
-        private int arrayProgress = 0;
-        public bool isDone { get { return _isDone; } }
-        private bool _isDone = false;
+        tmpro.maxVisibleCharacters = tmpro.text.Length;
+        Terminate();
+    }
 
-        public Encapsulated_Text encapsulator = null;
-        public Encapsulated_Text subEncapsulator = null;
-        public Encapsulated_Text(string tag, string[] allSpeechAndTagsArray, int arrayProgress)
-        {
-            this.tag = tag;
-            GenerateEndingTag();
-            this.allSpeechAndTagsArray = allSpeechAndTagsArray;
-            this.arrayProgress = arrayProgress;
-            if (allSpeechAndTagsArray.Length - 1 > arrayProgress)
-            {
-                string nextPart = allSpeechAndTagsArray[arrayProgress + 1];
-                targetText = nextPart;
-                /*bool isTag = ((arrayProgress + 1) & 1) != 0;
-                if (!isTag)
-                    targetText = nextPart;
-                else
-                {
-                    subEncapsulator = new Encapsulated_Text(string.Format("<{0}>", nextPart), allSpeechAndTagsArray, arrayProgress + 1);
-                }*/
+    public void Renew(string targ, string pre)
+    {
+        targetText = targ;
+        preText = pre;
+        if (isConstructing)
+            DialogueSystem.instance.StopCoroutine(buildProcess);
 
-                this.arrayProgress++;
-            }
-        }
-        void GenerateEndingTag()
-        {
-            endingTag = tag.Replace("<", "").Replace(">", "");
-            if (endingTag.Contains("="))
-            {
-                endingTag = string.Format("</{0}>", endingTag.Split('=')[0]);
-            }
-            else
-            {
-                endingTag = string.Format("</{0}>", endingTag);
-            }
-        }
-        public bool Step()
-        {
-            if (isDone)
-                return true;
-            if (subEncapsulator != null && !subEncapsulator.isDone)
-            {
-                return subEncapsulator.Step();
-            }
-            else
-            {
-                if (currentText == targetText)
-                {
-                    if (allSpeechAndTagsArray.Length > arrayProgress + 1)
-                    {
-                        string nextPart = allSpeechAndTagsArray[arrayProgress + 1];
-                        bool isTag = ((arrayProgress + 1) & 1) != 0;
+        buildProcess = DialogueSystem.instance.StartCoroutine(Construction());
 
-                        if (isTag)
-                        {
-                            if (string.Format("<{0}>", nextPart) == endingTag)
-                            {
-                                _isDone = true;
-                                if (encapsulator != null)
-                                {
-                                    string taggedText = tag + currentText + endingTag;
-                                    encapsulator.currentText += taggedText;
-                                    encapsulator.targetText += taggedText;
+    }
 
-                                    UpdateArrayProgress(2);
-                                }
-                            }
-                            else
-                            {
-                                subEncapsulator = new Encapsulated_Text(string.Format("<{0}>", nextPart), allSpeechAndTagsArray, arrayProgress + 1);
-                                subEncapsulator.encapsulator = this;
-                                UpdateArrayProgress();
-                            }
-                        }
-                        else
-                        {
-                            targetText += nextPart;
-                            UpdateArrayProgress();
-                        }
-                    }
-                    else
-                    {
-                        _isDone = true;
+    public void ShowText(string text)
+    {
+        if (isConstructing)
+            DialogueSystem.instance.StopCoroutine(buildProcess);
+        targetText = text;
+        tmpro.text = text;
 
-                    }
-                }
-                else
-                {
-                    currentText += targetText[currentText.Length];
-                    UpdateDisplay("");
-                    return true;
-                }
-            }
-            return false;
-        }
+        tmpro.maxVisibleCharacters = tmpro.text.Length;
 
-        void UpdateArrayProgress(int val = 1)
-        {
-            arrayProgress += val;
-            if (encapsulator != null)
-                encapsulator.UpdateArrayProgress(val);
-        }
-        void UpdateDisplay(string subValue)
-        {
-            _displayText = string.Format("{0}{1}{2}{3}", tag, currentText, subValue, endingTag);
-            if (encapsulator != null)
-                encapsulator.UpdateDisplay(displayText);
-        }
+        if (tmpro == DialogueSystem.instance.speechText)
+            DialogueSystem.instance.targetSpeech = text;
     }
 }

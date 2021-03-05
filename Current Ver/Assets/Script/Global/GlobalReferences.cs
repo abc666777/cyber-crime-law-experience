@@ -24,9 +24,10 @@ public static class GlobalReferences
         public static string PrefabPanelsPath = "Prefabs/Panel";
         public static string PrefabCharacterPath = "Prefabs/Character";
         public static string SpriteCharacterPath = "Image/Character/";
-        public const string SFXPath = "Audio/SFX";
-        public const string BGMPath = "Audio/BGM";
-
+        public const string BackgroundPath = "Image/Background";
+        public const string TransitonEffectPath = "Image/TransitionEffects";
+        public const string SFXPath = "Audio/SFX/";
+        public const string BGMPath = "Audio/BGM/";
         public const string StoryPath = "Story/";
         public static string SavePath = Application.persistentDataPath + "/";
     }
@@ -48,6 +49,9 @@ public static class GlobalReferences
         public const string Betty = "เบตตี้";
         public const string Botak = "โบทัก";
         public const string Daiji = "ไดจิ";
+        public const string Police = "ตำรวจ";
+        public const string Badguy = "นักเลง";
+        public const string Auntie = "คุณป้า";
     }
 
     public static class CharacterExpression

@@ -16,10 +16,12 @@ public class DialogueSystem : MonoBehaviour
 
     // Update is called once per frame
 
-    public void Say(string speech, string speaker = "")
+    public void Say(string speech, bool additive = false, string speaker = "")
     {
         StopSpeaking();
-        speaking = StartCoroutine(Speaking(speech, speaker));
+        if (additive)
+            speechText.text = targetSpeech;
+        speaking = StartCoroutine(Speaking(speech, additive, speaker));
 
     }
 
@@ -40,22 +42,28 @@ public class DialogueSystem : MonoBehaviour
     [HideInInspector] public bool isWaitingForUserInput = false;
     Coroutine speaking = null;
     public string targetSpeech = "";
-    TextArchitect textArchitect = null;
-    IEnumerator Speaking(string speech, string speaker = "")
+    public TextArchitect textArchitect = null;
+    IEnumerator Speaking(string speech, bool additive, string speaker = "")
     {
+        //Debug.Log(speech);
         speechPanel.SetActive(true);
-        targetSpeech = speech;
-        textArchitect = new TextArchitect(targetSpeech);
-        speechText.text = "";
+        string additiveSpeech = additive ? speechText.text : "";
+        targetSpeech = additiveSpeech + speech;
+        if (textArchitect == null)
+            textArchitect = new TextArchitect(speechText, speech, additiveSpeech);
+        else
+            textArchitect.Renew(speech, additiveSpeech);
+        //speechText.text = "";
         speakerNameText.text = DetermineSpeaker(speaker);
         isWaitingForUserInput = false;
 
         while (textArchitect.isConstructing)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-                textArchitect.Stop();
+            //if (Input.GetKeyDown(KeyCode.Space))
+            //textArchitect.ForceFinish();
 
-            speechText.text = speech;
+            //speechText.text = speech;
+            //speechText.maxVisibleCharacters = speechText.textInfo.characterCount;
             yield return new WaitForEndOfFrame();
         }
         isWaitingForUserInput = true;
