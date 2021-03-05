@@ -1,4 +1,4 @@
-narrator "[showScene(true,ดำ)] {w 1}[playBGM(TwoMoons-BobbyRichards) playSFX(KeyboardTypingFast)]จังหวัดไอรา"
+narrator "[showScene(true,ดำ)]{w 1}[playBGM(TwoMoons-BobbyRichards) playSFX(KeyboardTypingFast)]จังหวัดไอรา"
 "จังหวัดใหม่ล่าสุดของประเทศไทยที่มีการออกแบบโครงสร้าง<br>ของเมืองใหม่โดยการนำเทคโนโลยีเข้ามาช่วยในการจัดการและบริหาร"
 "[playSFX(KeyboardTypingFast2)]ด้วยระบบ ACS หรือ All Controllable System ที่ถูกพัฒนาขึ้นมาจากการร่วมมือกันของประเทศไทย ญี่ปุ่น และอเมริกาภายใต้ชื่อบริษัท Bridge จะช่วยให้เครื่องใช้ไฟฟ้าต่าง ๆ"
 "สามารถเชื่อมต่อเพื่อสื่อสารกันได้แบบเรียลไทม์ ซึ่งก็รวมถึงรถยนต์ไฟฟ้าและรถโดยสารอื่น ๆ ด้วยเช่นกัน"
