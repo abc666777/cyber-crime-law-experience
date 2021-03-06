@@ -32,4 +32,4 @@
 เบตตี้ "[setExpression(เบตตี้,delighted)]อะ เอ่อ… งั้นฉันเลี้ยงชาไข่มุกละกัน !"
 หนมปัง "พวกนาย..."
 หนมปัง "[setExpression(หนมปัง,smile2)]ขอบคุณนะ"
-"[showScene(false,วาร์ป,1)]{w 3}[ending()]"
+"[showScene(false,วาร์ป,1) addCheckPoint(ep1_ถามอ้อม)]{w 3}[ending()]"

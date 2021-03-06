@@ -9,6 +9,8 @@ public static class GlobalReferences
         public const string StartScene = "START";
         public const string ArchiveScene = "ARCHIVE";
         public const string GameplayScene = "GAMEPLAY";
+        public const string EndingScene = "ENDING";
+        public const string CreditScene = "CREDIT";
     }
 
     public static class Panel
@@ -21,6 +23,7 @@ public static class GlobalReferences
     public static class Path
     {
         public static string ArchivePath = "Data/Archive";
+        public const string CheckpointPath = "Data/Checkpoint";
         public static string PrefabPanelsPath = "Prefabs/Panel";
         public static string PrefabCharacterPath = "Prefabs/Character";
         public static string SpriteCharacterPath = "Image/Character/";
@@ -34,7 +37,8 @@ public static class GlobalReferences
 
     public static class Data
     {
-        public static string ArchiveData = "Data";
+        public static string ArchiveData = "/Data";
+        public const string CheckPointData = "/Checkpoint";
     }
 
     public static class CharacterName

@@ -7,12 +7,14 @@ using UnityEngine.UI;
 
 public class NewGameButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private GameObject description;
-    [SerializeField] private TextMeshProUGUI headerText;
-    [SerializeField] private TextMeshProUGUI descText;
+    public GameObject description;
+    public TextMeshProUGUI headerText;
+    public TextMeshProUGUI descText;
+    public int chapterIndex;
 
     private int[] id = new int[6];
-    public void OnPointerEnter(PointerEventData eventData){
+    public void OnPointerEnter(PointerEventData eventData)
+    {
         Color tempColor = description.GetComponent<Image>().color;
         tempColor.a = 0f;
         description.GetComponent<Image>().color = tempColor;
@@ -26,7 +28,8 @@ public class NewGameButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         id[2] = LeanTween.value(descText.gameObject, a => descText.alpha = a, 0f, 1f, 0.3f).setDelay(0.6f).id;
     }
 
-    public void OnPointerExit(PointerEventData eventData){
+    public void OnPointerExit(PointerEventData eventData)
+    {
         Color tempColor = description.GetComponent<Image>().color;
         tempColor.a = 0.8f;
         description.GetComponent<Image>().color = tempColor;
@@ -40,5 +43,9 @@ public class NewGameButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         id[5] = LeanTween.alpha(description.GetComponent<RectTransform>(), 0f, 0.3f).setDelay(0.3f).id;
     }
 
-    
+    public void OnClick()
+    {
+        GameManager.instance.currentChapterIndex = chapterIndex;
+        SceneManager.instance.LoadScene(GlobalReferences.Scene.GameplayScene);
+    }
 }

@@ -18,6 +18,7 @@ public class AssetsLoader : MonoBehaviour
     {
         get { return _archiveData; }
     }
+    public TextAsset checkpointData;
     void Awake()
     {
         if (instance != null && instance != this)
@@ -37,7 +38,8 @@ public class AssetsLoader : MonoBehaviour
         sfxs = Resources.LoadAll<AudioClip>(GlobalReferences.Path.SFXPath);
         bgms = Resources.LoadAll<AudioClip>(GlobalReferences.Path.BGMPath);
 
-        _archiveData = Resources.Load<TextAsset>(GlobalReferences.Path.ArchivePath + "/" + GlobalReferences.Data.ArchiveData) as TextAsset;
+        _archiveData = Resources.Load<TextAsset>(GlobalReferences.Path.ArchivePath + GlobalReferences.Data.ArchiveData) as TextAsset;
+        checkpointData = Resources.Load<TextAsset>(GlobalReferences.Path.CheckpointPath + GlobalReferences.Data.CheckPointData) as TextAsset;
 
         characterSprite.GabiSpriteList = Resources.LoadAll<Sprite>(GlobalReferences.Path.SpriteCharacterPath + GlobalReferences.CharacterName.Gabi);
         characterSprite.KanaoSpriteList = Resources.LoadAll<Sprite>(GlobalReferences.Path.SpriteCharacterPath + GlobalReferences.CharacterName.Kanao);

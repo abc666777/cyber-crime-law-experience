@@ -9,6 +9,11 @@ public class NovelController : MonoBehaviour
     [HideInInspector]
     private bool isAuto = false;
     List<string> data = new List<string>();
+    string[] startChptr = new string[]
+    {
+        "episode1_0"
+    };
+
     //int progress = 0;
     private void Awake()
     {
@@ -16,7 +21,8 @@ public class NovelController : MonoBehaviour
     }
     private void Start()
     {
-        LoadChapterFile("episode1_0");
+        GameManager.instance.checkpoints = new List<string>();
+        LoadChapterFile(startChptr[GameManager.instance.currentChapterIndex]);
     }
 
     private void Update()
@@ -244,7 +250,7 @@ public class NovelController : MonoBehaviour
                 Command_AddCheckPoint(data[1]);
                 return;
             case "ending":
-                SceneManager.instance.LoadScene("ENDING");
+                SceneManager.instance.LoadScene(GlobalReferences.Scene.EndingScene);
                 return;
             default:
                 Debug.LogError("ERROR: command " + data[0] + "does not exist. (Command not found)");
@@ -432,6 +438,7 @@ public class NovelController : MonoBehaviour
 
     void Command_AddCheckPoint(string checkPoint)
     {
+        GameManager.instance.checkpoints.Add(checkPoint);
         //Add CheckPont to The Scene
     }
     #endregion

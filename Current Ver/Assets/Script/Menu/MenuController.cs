@@ -4,39 +4,46 @@ using UnityEngine;
 
 public class MenuController : MonoBehaviour
 {
-    [SerializeField] private GameObject fader;
-    [SerializeField] private GameObject btn1;
-    [SerializeField] private GameObject btn2;
-    [SerializeField] private GameObject btn3;
-    [SerializeField] private GameObject btn4;
-    [SerializeField] private GameObject btn5;
-    [SerializeField] private GameObject btn6;
+    public GameObject fader;
+    public GameObject btn1;
+    public GameObject btn2;
+    public GameObject btn3;
+    public GameObject btn4;
+    public GameObject btn5;
+    public GameObject btn6;
 
-    void Awake() {
+    void Awake()
+    {
         Init();
     }
-    
-    public void NewGameFunction(){
+
+    public void NewGameFunction()
+    {
         Instantiate(AssetsLoader.instance.PanelLoader(GlobalReferences.Panel.NewGamePanel), GameObject.Find("Canvas").transform);
     }
 
-    public void LoadGameFunction(){
+    public void LoadGameFunction()
+    {
         Instantiate(AssetsLoader.instance.PanelLoader(GlobalReferences.Panel.LoadGamePanel), GameObject.Find("Canvas").transform);
     }
 
-    public void SettingFunction(){
+    public void SettingFunction()
+    {
         Instantiate(AssetsLoader.instance.PanelLoader(GlobalReferences.Panel.SettingPanel), GameObject.Find("Canvas").transform);
     }
 
-    public void ArchiveFunction(){
+    public void ArchiveFunction()
+    {
         SceneManager.instance.LoadScene(GlobalReferences.Scene.ArchiveScene);
     }
 
-    private void DestroyFader(){
+    private void DestroyFader()
+    {
         Destroy(fader);
     }
 
-    void Init(){
+    void Init()
+    {
         LeanTween.alpha(fader.GetComponent<RectTransform>(), 0f, 6f).setOnComplete(DestroyFader);
         /*LeanTween.moveX(btn1.GetComponent<RectTransform>(), -330f, 1f);
         LeanTween.moveX(btn2.GetComponent<RectTransform>(), -330f, 1f).setDelay(1f);
