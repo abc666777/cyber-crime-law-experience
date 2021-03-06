@@ -90,12 +90,11 @@ public class EndingController : MonoBehaviour
                             sentences.Add(_dt.Replace("<<sentence>>", "").Split(':')[1]);
                         }
                     }
-                    foreach (string st in sentences)
-                    {
-                        targetText += (st + "<br>");
-                    }
-
                 }
+            }
+            foreach (string st in sentences)
+            {
+                targetText += (st + "<br>");
             }
         }
         else
