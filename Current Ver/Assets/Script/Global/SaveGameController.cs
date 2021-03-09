@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoadGameController : MonoBehaviour
+public class SaveGameController : MonoBehaviour
 {
     public GameObject fader;
-    public static LoadGameController instance;
     // Start is called before the first frame update
     void Awake()
     {
         Init();
-        instance = this;
     }
 
     void Update()

@@ -93,6 +93,7 @@ public class ChapterLineManager : MonoBehaviour
             {
                 allCurrentlyExecutedEvents.Clear();
                 TagManager.Inject(ref dialogue);
+                //Debug.Log(dialogue);
                 string[] parts = dialogue.Split('[', ']');
                 for (int i = 0; i < parts.Length; i++)
                 {
@@ -104,6 +105,8 @@ public class ChapterLineManager : MonoBehaviour
                         i++;
                     }
                     string targDialogue = parts[i];
+                    if (targDialogue.Length < 1)
+                        continue;
 
                     if (line.speaker != "narrator")
                     {
@@ -114,7 +117,9 @@ public class ChapterLineManager : MonoBehaviour
                     {
                         DialogueSystem.instance.Say(targDialogue, i > 0 ? true : preText != "", line.speaker);
                     }
+                    //Debug.Log(DialogueSystem.instance.textArchitect == null);
                     architect = DialogueSystem.instance.textArchitect;
+
                     while (architect.isConstructing)
                         yield return new WaitForEndOfFrame();
                 }

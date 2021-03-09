@@ -18,6 +18,7 @@ public static class GlobalReferences
         public static string NewGamePanel = "NewGamePanel";
         public static string LoadGamePanel = "LoadGamePanel";
         public static string SettingPanel = "SettingPanel";
+        public const string SaveGamePanel = "SaveGamePanel";
     }
 
     public static class Path

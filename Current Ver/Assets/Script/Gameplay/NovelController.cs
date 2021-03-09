@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class NovelController : MonoBehaviour
 {
@@ -11,8 +12,12 @@ public class NovelController : MonoBehaviour
     List<string> data = new List<string>();
     string[] startChptr = new string[]
     {
-        "episode1_0"
+        "episode1_0",
+        "episode2_0",
+        "episode3_0"
     };
+
+    private GAMEFILE gameFile;
 
     //int progress = 0;
     private void Awake()
@@ -21,8 +26,90 @@ public class NovelController : MonoBehaviour
     }
     private void Start()
     {
-        GameManager.instance.checkpoints = new List<string>();
-        LoadChapterFile(startChptr[GameManager.instance.currentChapterIndex]);
+        //GameManager.instance.checkpoints = new List<string>();
+        //LoadChapterFile(startChptr[GameManager.instance.currentChapterIndex]);
+        switch (GameManager.instance.currentMode)
+        {
+            case GameManager.LoadMode.newGame:
+                GameManager.instance.checkpoints = new List<string>();
+                LoadChapterFile(startChptr[GameManager.instance.currentChapterIndex]);
+                gameFile = new GAMEFILE(startChptr[GameManager.instance.currentChapterIndex], 0, "", "", "", GameManager.instance.currentChapterIndex, DateTime.Now, GameManager.instance.checkpoints);
+                break;
+            case GameManager.LoadMode.loadGame:
+                LoadGameFile(GameManager.instance.SaveIndex);
+                break;
+            default:
+                Debug.Log("ERROR: MODE NOT FOUND (LOADING METHOD)");
+                break;
+        }
+
+    }
+
+    public void LoadGameFile(int gameFileNumber)
+    {
+        //activeGameFile = gameFileNumber;
+        gameFile = FileManager.LoadJSON<GAMEFILE>(GlobalReferences.Path.SavePath + gameFileNumber);
+        currentChapterFile = gameFile.chapterName;
+        data = FileManager.LoadChapterFile(gameFile.chapterName).ToList();
+        cachedLastSpeaker = gameFile.cachedLastSpeaker;
+
+        DialogueSystem.instance.speakerNameText.text = gameFile.currentShowSpeaker;
+        DialogueSystem.instance.speechText.text = gameFile.currentDialogue;
+
+        GameManager.instance.checkpoints = gameFile.checkpoints;
+        foreach (GAMEFILE.CHARACTERDATA data in gameFile.characters)
+        {
+            Character character = CharacterManager.instance.CreateCharacter(data.characterName, data.enabled);
+            character.SetExpression(data.characterExpression);
+            character.SetPosition(data.position);
+        }
+
+        BackgroundManager.instance.background.SetTexture(gameFile.background);
+        BackgroundManager.instance.foreground.SetTexture(gameFile.foreground);
+        BackgroundManager.instance.cinematic.SetTexture(gameFile.cinematic);
+
+        AudioManager.instance.PlayBGM(gameFile.bgm);
+
+        if (handlingChapterFile != null)
+            StopCoroutine(handlingChapterFile);
+        handlingChapterFile = StartCoroutine(HandlingChapterFile());
+
+
+
+        chapterProgress = gameFile.chapterProgress;
+        //Next();
+        //LoadChapterFile(gameFile.chapterName);
+    }
+
+    //int activeGameFile = 0;
+    string currentChapterFile = "";
+    public void SaveGameFile(int gameFileNumber)
+    {
+        gameFile = new GAMEFILE(
+            currentChapterFile,
+            chapterProgress,
+            cachedLastSpeaker,
+            DialogueSystem.instance.speakerNameText.text,
+            DialogueSystem.instance.speechText.text,
+            GameManager.instance.currentChapterIndex + 1,
+            DateTime.Now,
+            GameManager.instance.checkpoints
+        );
+
+        BackgroundManager instance = BackgroundManager.instance;
+        gameFile.background = instance.background.activeImage != null ? instance.background.activeImage.texture : null;
+        gameFile.foreground = instance.foreground.activeImage != null ? instance.foreground.activeImage.texture : null;
+        gameFile.cinematic = instance.cinematic.activeImage != null ? instance.cinematic.activeImage.texture : null;
+
+        gameFile.bgm = AudioManager.activeBGM.clip;
+
+        gameFile.characters.Clear();
+        foreach (Character c in CharacterManager.instance.characters)
+        {
+            GAMEFILE.CHARACTERDATA data = new GAMEFILE.CHARACTERDATA(c);
+            gameFile.characters.Add(data);
+        }
+        FileManager.SaveJSON(GlobalReferences.Path.SavePath + gameFileNumber, gameFile);
     }
 
     private void Update()
@@ -36,6 +123,7 @@ public class NovelController : MonoBehaviour
     void LoadChapterFile(string fileName)
     {
         data = FileManager.LoadChapterFile(fileName).ToList();
+        currentChapterFile = fileName;
         //progress = 0;
         cachedLastSpeaker = "";
         if (handlingChapterFile != null)
@@ -68,7 +156,7 @@ public class NovelController : MonoBehaviour
                 }
                 else
                 {
-                    HandleLine(data[chapterProgress]);
+                    HandleLine(line);
                     chapterProgress++;
                     while (isHandlingLine)
                     {
@@ -101,7 +189,7 @@ public class NovelController : MonoBehaviour
 
             if (line != "}")
             {
-                Debug.Log(line);
+                //Debug.Log(line);
                 choices.Add(line.Split('"')[1]);
                 actions.Add(data[chapterProgress + 1].Replace("    ", ""));
                 chapterProgress++;
@@ -252,6 +340,9 @@ public class NovelController : MonoBehaviour
             case "ending":
                 SceneManager.instance.LoadScene(GlobalReferences.Scene.EndingScene);
                 return;
+            case "next":
+                Next();
+                return;
             default:
                 Debug.LogError("ERROR: command " + data[0] + "does not exist. (Command not found)");
                 return;
@@ -296,36 +387,66 @@ public class NovelController : MonoBehaviour
     }
     private void Command_MoveCharacter(string data)
     {
-        string[] parameters = data.Split(',');
+        string[] characters = data.Split(';');
+        foreach (string character in characters)
+        {
+            string[] parameters = character.Split(',');
+            string charName = parameters[0];
+            float locationX = float.Parse(parameters[1]);
+            float locationY = parameters.Length >= 3 ? float.Parse(parameters[2]) : 0;
+            float speed = parameters.Length >= 4 ? float.Parse(parameters[3]) : 1f;
+            bool smooth = parameters.Length == 5 ? bool.Parse(parameters[4]) : false;
+
+            Character c = CharacterManager.instance.GetCharacter(charName);
+            c.MoveTo(new Vector2(locationX, locationY), speed, smooth);
+
+        }
+        /*string[] parameters = data.Split(',');
         string character = parameters[0];
         float locationX = float.Parse(parameters[1]);
         float locationY = parameters.Length >= 3 ? float.Parse(parameters[2]) : 0;
         float speed = parameters.Length >= 4 ? float.Parse(parameters[3]) : 1f;
-        bool smooth = parameters.Length == 5 ? bool.Parse(parameters[4]) : false;
+        bool smooth = parameters.Length == 5 ? bool.Parse(parameters[4]) : false;*/
 
-        Character c = CharacterManager.instance.GetCharacter(character);
-        c.MoveTo(new Vector2(locationX, locationY), speed, smooth);
+        /*Character c = CharacterManager.instance.GetCharacter(character);
+        c.MoveTo(new Vector2(locationX, locationY), speed, smooth);*/
     }
     private void Command_SetPosition(string data)
     {
-        string[] parameters = data.Split(',');
-        string character = parameters[0];
-        float locationX = float.Parse(parameters[1]);
-        float locationY = parameters.Length >= 3 ? float.Parse(parameters[2]) : 0;
+        string[] characters = data.Split(';');
+        foreach (string character in characters)
+        {
+            string[] parameters = data.Split(',');
+            string charName = parameters[0];
+            float locationX = float.Parse(parameters[1]);
+            float locationY = parameters.Length >= 3 ? float.Parse(parameters[2]) : 0;
 
-        Character c = CharacterManager.instance.GetCharacter(character);
-        c.SetPosition(new Vector2(locationX, locationY));
+            Character c = CharacterManager.instance.GetCharacter(charName);
+            c.SetPosition(new Vector2(locationX, locationY));
+        }
     }
     private void Command_SetExpression(string data)
     {
-        string[] parameters = data.Split(',');
+        string[] characters = data.Split(';');
+        foreach (string character in characters)
+        {
+            string[] parameters = data.Split(',');
+            string charName = parameters[0];
+            string expression = parameters[1];
+            float speed = parameters.Length >= 3 ? float.Parse(parameters[2]) : 2f;
+            bool smooth = parameters.Length == 4 ? bool.Parse(parameters[3]) : false;
+            Character c = CharacterManager.instance.GetCharacter(charName);
+            c.TransitionExpression(c.GetSprite(expression), speed, smooth);
+        }
+
+        /*string[] parameters = data.Split(',');
         string character = parameters[0];
         string expression = parameters[1];
         float speed = parameters.Length >= 3 ? float.Parse(parameters[2]) : 2f;
         bool smooth = parameters.Length == 4 ? bool.Parse(parameters[3]) : false;
 
         Character c = CharacterManager.instance.GetCharacter(character);
-        c.TransitionExpression(c.GetSprite(expression), speed, smooth);
+        c.TransitionExpression(c.GetSprite(expression), speed, smooth);*/
     }
 
     private void Command_Exit(string data)
@@ -442,4 +563,14 @@ public class NovelController : MonoBehaviour
         //Add CheckPont to The Scene
     }
     #endregion
+
+    public void SaveButton()
+    {
+        Instantiate(AssetsLoader.instance.PanelLoader(GlobalReferences.Panel.SaveGamePanel), GameObject.Find("Canvas").transform);
+    }
+
+    public void LoadGame()
+    {
+        Instantiate(AssetsLoader.instance.PanelLoader(GlobalReferences.Panel.LoadGamePanel), GameObject.Find("Canvas").transform);
+    }
 }

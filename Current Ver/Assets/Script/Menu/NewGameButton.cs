@@ -46,6 +46,7 @@ public class NewGameButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public void OnClick()
     {
         GameManager.instance.currentChapterIndex = chapterIndex;
+        GameManager.instance.currentMode = GameManager.LoadMode.newGame;
         SceneManager.instance.LoadScene(GlobalReferences.Scene.GameplayScene);
     }
 }

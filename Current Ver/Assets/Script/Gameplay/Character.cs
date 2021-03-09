@@ -51,7 +51,7 @@ public class Character
         }
     }
 
-    Vector2 targetPosition;
+    public Vector2 targetPosition;
     Coroutine moving;
     bool isMoving { get { return moving != null; } }
 
