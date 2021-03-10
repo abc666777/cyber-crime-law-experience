@@ -37,6 +37,16 @@ public class MenuController : MonoBehaviour
         SceneManager.instance.LoadScene(GlobalReferences.Scene.ArchiveScene);
     }
 
+    public void CreditFunction()
+    {
+
+    }
+
+    public void Quit()
+    {
+        SceneManager.instance.Quit();
+    }
+
     private void DestroyFader()
     {
         Destroy(fader);

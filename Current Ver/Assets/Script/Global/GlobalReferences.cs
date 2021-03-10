@@ -11,6 +11,7 @@ public static class GlobalReferences
         public const string GameplayScene = "GAMEPLAY";
         public const string EndingScene = "ENDING";
         public const string CreditScene = "CREDIT";
+        public const string PreloadScene = "PRELOAD";
     }
 
     public static class Panel

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.Audio;
 
 public class AssetsLoader : MonoBehaviour
 {
@@ -18,7 +19,12 @@ public class AssetsLoader : MonoBehaviour
     {
         get { return _archiveData; }
     }
-    public TextAsset checkpointData;
+    public TextAsset checkpointData
+    {
+        get { return _checkpointData; }
+    }
+    private TextAsset _checkpointData;
+    public AudioMixer masterMixer;
     void Awake()
     {
         if (instance != null && instance != this)
@@ -39,7 +45,7 @@ public class AssetsLoader : MonoBehaviour
         bgms = Resources.LoadAll<AudioClip>(GlobalReferences.Path.BGMPath);
 
         _archiveData = Resources.Load<TextAsset>(GlobalReferences.Path.ArchivePath + GlobalReferences.Data.ArchiveData) as TextAsset;
-        checkpointData = Resources.Load<TextAsset>(GlobalReferences.Path.CheckpointPath + GlobalReferences.Data.CheckPointData) as TextAsset;
+        _checkpointData = Resources.Load<TextAsset>(GlobalReferences.Path.CheckpointPath + GlobalReferences.Data.CheckPointData) as TextAsset;
 
         characterSprite.GabiSpriteList = Resources.LoadAll<Sprite>(GlobalReferences.Path.SpriteCharacterPath + GlobalReferences.CharacterName.Gabi);
         characterSprite.KanaoSpriteList = Resources.LoadAll<Sprite>(GlobalReferences.Path.SpriteCharacterPath + GlobalReferences.CharacterName.Kanao);

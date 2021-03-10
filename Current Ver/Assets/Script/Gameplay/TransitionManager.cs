@@ -8,6 +8,7 @@ public class TransitionManager : MonoBehaviour
     public static TransitionManager instance;
     public RawImage overlayImage;
     public Material transitionMaterialPrefab;
+    public bool isTransition = false;
     private void Awake()
     {
         instance = this;
@@ -17,6 +18,7 @@ public class TransitionManager : MonoBehaviour
     static bool sceneVisible = true;
     public static void ShowScene(bool show, float speed = 1, bool smooth = false, Texture2D transitionEffect = null)
     {
+        instance.isTransition = true;
         if (transitioningOverlay != null)
             instance.StopCoroutine(transitioningOverlay);
         sceneVisible = show;
@@ -37,10 +39,12 @@ public class TransitionManager : MonoBehaviour
             instance.overlayImage.material.SetFloat("_Cutoff", curVal);
             yield return new WaitForEndOfFrame();
         }
+        instance.isTransition = false;
         transitioningOverlay = null;
     }
     public static void TransitionLayer(BackgroundManager.Layer layer, Texture2D targetImage, Texture2D transitionEffect, float speed = 1, bool smooth = false)
     {
+        instance.isTransition = true;
         if (layer.specialTransitionCoroutine != null)
             instance.StopCoroutine(layer.specialTransitionCoroutine);
         if (targetImage != null)
@@ -85,6 +89,7 @@ public class TransitionManager : MonoBehaviour
 
             layer.allImages.RemoveAt(i);
         }
+        instance.isTransition = false;
         layer.specialTransitionCoroutine = null;
     }
     static IEnumerator TransitioningLayerToNull(BackgroundManager.Layer layer, Texture2D transitionEffect, float speed, bool smooth)
@@ -113,7 +118,7 @@ public class TransitionManager : MonoBehaviour
             if (r.material != null)
                 Destroy(r.gameObject, 0.01f);
         }
-
+        instance.isTransition = false;
         layer.specialTransitionCoroutine = null;
     }
 }

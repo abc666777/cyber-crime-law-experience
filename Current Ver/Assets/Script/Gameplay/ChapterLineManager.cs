@@ -115,7 +115,7 @@ public class ChapterLineManager : MonoBehaviour
                     }
                     else
                     {
-                        DialogueSystem.instance.Say(targDialogue, i > 0 ? true : preText != "", line.speaker);
+                        DialogueSystem.instance.Say(targDialogue, preText != "", line.speaker);
                     }
                     //Debug.Log(DialogueSystem.instance.textArchitect == null);
                     architect = DialogueSystem.instance.textArchitect;

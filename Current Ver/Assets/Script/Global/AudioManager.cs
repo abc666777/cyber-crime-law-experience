@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
+    private static AudioMixer mixer;
     public static AudioManager instance;
     public static BGM activeBGM = null;
     public static List<BGM> allBGMs = new List<BGM>();
@@ -23,12 +25,18 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        mixer = AssetsLoader.instance.masterMixer;
+    }
+
     public void PlaySFX(AudioClip effect, float volume = 1f, float pitch = 1f)
     {
         AudioSource source = CreateNewSource(string.Format("SFX [{0}]", effect.name));
         source.clip = effect;
         source.volume = volume;
         source.pitch = pitch;
+        source.outputAudioMixerGroup = mixer.FindMatchingGroups("SFX")[0];
         source.Play();
 
         Destroy(source.gameObject, effect.length);
@@ -120,6 +128,7 @@ public class AudioManager : MonoBehaviour
             maxVolume = _maxVolume;
             source.pitch = pitch;
             source.loop = loop;
+            source.outputAudioMixerGroup = mixer.FindMatchingGroups("BGM")[0];
 
             AudioManager.allBGMs.Add(this);
 

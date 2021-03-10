@@ -116,7 +116,9 @@ public class NovelController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Next();
+            //Debug.Log(TransitionManager.instance.isTransition);
+            if (!TransitionManager.instance.isTransition)
+                Next();
         }
     }
 
@@ -134,6 +136,12 @@ public class NovelController : MonoBehaviour
     }
 
     bool _next = false;
+
+    public void OnClickNext()
+    {
+        if (!TransitionManager.instance.isTransition)
+            Next();
+    }
     public void Next()
     {
         _next = true;
@@ -559,6 +567,8 @@ public class NovelController : MonoBehaviour
 
     void Command_AddCheckPoint(string checkPoint)
     {
+        if (GameManager.instance.checkpoints.Contains(checkPoint))
+            return;
         GameManager.instance.checkpoints.Add(checkPoint);
         //Add CheckPont to The Scene
     }
@@ -572,5 +582,20 @@ public class NovelController : MonoBehaviour
     public void LoadGame()
     {
         Instantiate(AssetsLoader.instance.PanelLoader(GlobalReferences.Panel.LoadGamePanel), GameObject.Find("Canvas").transform);
+    }
+
+    public void SettingButton()
+    {
+        Instantiate(AssetsLoader.instance.PanelLoader(GlobalReferences.Panel.SettingPanel), GameObject.Find("Canvas").transform);
+    }
+
+    public void BackToMenuButton()
+    {
+        SceneManager.instance.LoadScene(GlobalReferences.Scene.StartScene);
+    }
+
+    public void Quit()
+    {
+        SceneManager.instance.Quit();
     }
 }

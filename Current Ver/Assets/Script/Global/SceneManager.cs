@@ -9,17 +9,25 @@ public class SceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(instance != null && instance != this){
+        if (instance != null && instance != this)
+        {
             Destroy(this.gameObject);
             return;
         }
-        if(instance == null){
+        if (instance == null)
+        {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
     }
 
-    public void LoadScene(string sceneName){
+    public void LoadScene(string sceneName)
+    {
         UnitySceneManager.LoadScene(sceneName);
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }
