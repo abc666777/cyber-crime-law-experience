@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1554,20 +1554,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5472edca69f19a4cafa077bd8eb7217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bill:
-    characterName: 
-    root: {fileID: 0}
-    targetPosition: {x: 0, y: 0}
-    renderers:
-      renderer: {fileID: 0}
-      allRenderers: []
-  moveTarget: {x: 0, y: 0}
-  moveSpeed: 1
-  smooth: 0
-  speech:
-  - HELLO
-  - TEST
-  - BYE
 --- !u!114 &749617270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1592,9 +1578,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5feb76529f780fb43a5168870da572ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tex: {fileID: 2800000, guid: 94e2d0b1e186fd846a511bfa3e5bc313, type: 3}
-  speed: 0.5
-  smooth: 0
 --- !u!114 &749617273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1607,9 +1590,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac2d0f0d3faf40d4ba13c826d65cae82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sfx: {fileID: 8300000, guid: a7a735cade195414ea9ece82bdc53111, type: 3}
-  bgm: {fileID: 8300000, guid: 247654d3a0d5c244baf6ce719df2d1e1, type: 3}
-  bgm1: {fileID: 8300000, guid: 841c2ba901464794992493cfe4125887, type: 3}
 --- !u!114 &749617274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1622,10 +1602,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 913c74c4f47ef634f89db6e2aba4b3d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 2133991271}
-  say: 'HELLO <b><i><color=red>FUCKER</color></i></b>
-
-    THIS IS <b> MY TURF </b> <i>NOW! </i>adsadsadsadnmklnqwjepqkweqwekjqwejqwekmqeqlkwekqwm;lsasadajsndlqwle,kadsxpskfol[spa,sadsa'
 --- !u!114 &749617275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1638,12 +1614,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b65778068c9c5204293213a253893988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tex1: {fileID: 2800000, guid: 5bf075b35a0494e4d833ee6a21966df8, type: 3}
-  tex2: {fileID: 2800000, guid: f4c9e3febb7e10b499b67cbe66c71276, type: 3}
-  tex3: {fileID: 2800000, guid: 17c350171f7a3ca479f830547c66d187, type: 3}
-  trans1: {fileID: 2800000, guid: 9d043aaaa92d7f04bb694218e1cfae51, type: 3}
-  trans2: {fileID: 2800000, guid: 31aaa60c9a2732447b0fb7ef230951a0, type: 3}
-  trans3: {fileID: 0}
 --- !u!114 &749617276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1918,12 +1888,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.6}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.6}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 79d3ae9b7b9e083488eb232d1f7c519b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
