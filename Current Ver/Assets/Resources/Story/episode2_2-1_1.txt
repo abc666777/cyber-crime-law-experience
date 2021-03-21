@@ -1,0 +1,16 @@
+กาบิ "[setExpression(กาบิ,shocked) playBGM(Tropic-AnnoDominiBeats) addCheckPoint(ep2_เชื่อใจ)]ฮารุ !?"
+setExpression(กาบิ,smile2) next()
+"ขอบคุณนะจ๊ะ"
+setExpression(คานาโอะ,laugh) next()
+คานาโอะ "ฉันเองก็คิดว่ากาบิไม่ได้เป็นคนทำหรอก"
+setExpression(กาบิ,sad) next()
+กาบิ "แต่ยังไงคนร้ายตัวจริงก็ยังลอยนวลอยู่สินะ"
+setExpression(คานาโอะ,delighted) next()
+คานาโอะ "เรื่องนั้นไม่ต้องเป็นห่วงหรอกจ๊ะ พี่ชายของฮารุจะต้องจับคนร้ายตัวจริงได้แน่"
+setExpression(กาบิ,shocked) next()
+กาบิ "พี่ชายของฮารุ ?"
+setExpression(ฮารุ,laugh) next()
+ฮารุ "อื้ม พี่ชายของฉันเป็นนักสืบน่ะ"
+กาบิ "นักสืบ !?"
+narrator-???"[exit(กาบิ;คานาโอะ;ฮารุ)]{w 1}[transBackground(null,ดำ,0.5)]{w 3}ชิ ดูเหมือนแผนจะไม่สำเร็จสินะ"
+"[showScene(false,หลุมดำ,0.5)]{w 3}[ending()]"

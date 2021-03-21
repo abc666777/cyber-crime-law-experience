@@ -1,0 +1,71 @@
+narrator "[showScene(true,ดำ) addCheckPoint(ep2_จบบท2) playBGM(null)]{w 1}[playSFX(KeyboardTypingFast)]2 อาทิตย์ต่อมาหลังจากเหตุการณ์ใน Episode ที่ 1"
+"ณ มหาวิทยาลัยนานาชาติ Santa Clara"
+"[showScene(false,เฟดซ้าย,0.5)]{w 2.5}[setBackground(ทางเดินในมหาลัย) next()]"
+ื"[showScene(true,เฟดซ้าย,0.5) playBGM(Marigold-QuincasMoreira)]{w 2}[enter(กาบิ;คุณป้า) setPosition(กาบิ,0.2;คุณป้า,0.8) setExpression(กาบิ,sad;คุณป้า,smile) next()]"
+กาบิ "ร... รุ่นพี่คะ"
+คุณป้า-รุ่นพี่ "อ้าว ว่าไงกาบิ ลืมของหรอ ?"
+กาบิ "คือว่า… น หนู…"
+คุณป้า-รุ่นพี่ "หือ ???"
+setExpression(กาบิ,laugh) next()
+กาบิ "หนูชอบรุ่นพี่นะคะ !"
+setExpression(คุณป้า,laugh) next()
+คุณป้า-รุ่นพี่ "หา !?"
+"กาบิ..."
+setExpression(กาบิ,smile) next()
+กาบิ "คะ ?"
+คุณป้า-รุ่นพี่ "พี่ขอโทษนะ แต่พี่..."
+"พี่มีคนที่ชอบอยู่แล้วน่ะ[playBGM(null)]"
+setExpression(กาบิ,shocked) next()
+กาบิ "อึก !!!"
+setExpression(กาบิ,sad) next()
+กาบิ "ม... ไม่เป็นไรค่ะรุ่นพี่"
+"หนูเข้าใจค่ะ..."
+"หนูน่าจะรู้ตั้งแต่แรก..."
+"ว่ารุ่นพี่น่ะ... หล่อ... แถมเป็นที่รู้จักเยอะ... จะมีแฟนก็ไม่แปลก"
+"ขอโทษนะคะที่รบกวนรุ่นพี่"
+"[playSFX(WalkonTileSeries) move(กาบิ,2)]"
+คุณป้า-รุ่นพี่ "ด... เดี๋ยวก่อนสิกาบิ !"
+narrator "[showScene(false,เฟดซ้าย,0.5)]{w 2.5}[setBackground(ห้องเรียน) setPosition(กาบิ,0) exit(คุณป้า) next()]"
+narrator "[showScene(true,เฟดซ้าย,0.5) playBGM(MyAchyHeart-AudioHertz)]{w 2}1 วันถัดมา"
+กาบิ "..."
+enter(คานาโอะ) setPosition(คานาโอะ,1) setExpression(คานาโอะ,laugh) next()
+คานาโอะ "สวัสดีจ้ากาบิ"
+setExpression(กาบิ,shocked) next()
+กาบิ "คานาโอะ !"
+enter(ฮารุ) setPosition(ฮารุ,0.5) setExpression(ฮารุ,annoyed) next()
+ฮารุ "น... นี่ คานาโอะ รอฉันด้วยสิ !"
+setExpression(ฮารุ,smile) next()
+ฮารุ "สวัสดีจ้ากาบิ"
+setExpression(กาบิ,smile) next()
+กาบิ "สวัสดีจ้ะ"
+setExpression(คานาโอะ,smile2) next()
+คานาโอะ "เราไปนั่งที่โต๊ะกันเถอะ ใกล้จะถึงเวลาเข้าเรียนแล้ว"
+playSFX(Deskorganization) next()
+narrator "ทั้ง 3 คนเดินไปนั้งที่โต๊ะเรียน"
+setExpression(ฮารุ,normal) next()
+ฮารุ "นี่กาบิ เธอดู เอ่อ… สีหน้าไม่ค่อยดีเลย"
+setExpression(กาบิ,sad) next()
+กาบิ "..."
+setExpression(กาบิ,smile) next()
+กาบิ "คือว่า… ฉันไม่ค่อยสบายน่ะ"
+คานาโอะ "ช่วงนี้อากาศเริ่มหนาวแล้ว ดูแลตัวเองด้วยนะจ๊ะ"
+transBackground(ห้องเรียน2,ดำ) next()
+narrator "{w 1}หลายชั่วโมงต่อมา"
+setExpression(ฮารุ,annoyed) next()
+ฮารุ "อืมมม วันนี้ฉันเรียนไม่ค่อยเข้าใจเลย"
+setExpression(คานาโอะ,laugh) next()
+คานาโอะ "ไม่เป็นไรนะจ๊ะฮารุ ไว้ช่วงวันหยุดฉันจะติวเพิ่มให้"
+setExpression(ฮารุ,smile2) next()
+ฮารุ "ขอบคุณน้า คานาโอะ เธอนี่เก่งที่สุดเลย !"
+setExpression(กาบิ,sad) next()
+กาบิ "..."
+setExpression(ฮารุ,normal) next()
+ฮารุ "(กาบิ...)"
+narrator "ฮารุเห็นว่ากาบิก็เรียนไม่เข้าใจเหมือนกัน ฮารุจะถามกาบิหรือไม่?"
+choice
+{
+    "ถาม"
+    load(episode2_1-1)
+    "ไม่ถาม"
+    load(episode2_1-2) playSFX(SlidingGlassDoorSeries) enter(คุณป้า) setPosition(กาบิ,0;ฮารุ,0.3;คานาโอะ,0.6;คุณป้า,1)
+}

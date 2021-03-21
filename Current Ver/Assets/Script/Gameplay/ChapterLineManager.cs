@@ -108,14 +108,33 @@ public class ChapterLineManager : MonoBehaviour
                     if (targDialogue.Length < 1)
                         continue;
 
-                    if (line.speaker != "narrator")
+                    if (!line.speaker.Contains("narrator"))
                     {
-                        Character c = CharacterManager.instance.GetCharacter(line.speaker);
-                        c.Say(targDialogue);
+                        string[] trueSpeaker = line.speaker.Split('-');
+                        if (trueSpeaker.Length > 1)
+                        {
+                            Character c = CharacterManager.instance.GetCharacter(trueSpeaker[0]);
+                            c.Say(targDialogue);
+                            DialogueSystem.instance.speakerNameText.text = trueSpeaker[1];
+                        }
+                        else
+                        {
+                            Character c = CharacterManager.instance.GetCharacter(trueSpeaker[0]);
+                            c.Say(targDialogue);
+                        }
                     }
                     else
                     {
-                        DialogueSystem.instance.Say(targDialogue, preText != "", line.speaker);
+                        string[] trueSpeaker = line.speaker.Split('-');
+                        if (trueSpeaker.Length > 1)
+                        {
+                            DialogueSystem.instance.Say(targDialogue, preText != "", trueSpeaker[0]);
+                            DialogueSystem.instance.speakerNameText.text = trueSpeaker[1];
+                        }
+                        else
+                        {
+                            DialogueSystem.instance.Say(targDialogue, preText != "", trueSpeaker[0]);
+                        }
                     }
                     //Debug.Log(DialogueSystem.instance.textArchitect == null);
                     architect = DialogueSystem.instance.textArchitect;

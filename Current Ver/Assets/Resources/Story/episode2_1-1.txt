@@ -1,0 +1,17 @@
+setExpression(ฮารุ,smile) next()
+ฮารุ "กาบิ"
+setExpression(กาบิ,normal) next()
+กาบิ "มีอะไรเหรอ ?"
+setExpression(ฮารุ,smile2) next()
+ฮารุ "เป็นไงบ้าง เรียนเข้าใจมั้ย ?"
+setExpression(กาบิ,delighted) next()
+กาบิ "ฉันก็ไม่ค่อยเข้าใจบางจุดน่ะ"
+setExpression(ฮารุ,smile) next()
+ฮารุ "งั้นถ้าวันไหนว่าง เธอมาติวกับพวกเรามั้ย ?"
+setExpression(กาบิ,shocked) next()
+กาบิ "อ เอ๋ ?"
+setExpression(คานาโอะ,laugh) next()
+คานาโอะ "นั้นสิ ถ้ากาบิมาติวด้วยก็น่าจะดีนะจ๊ะ"
+setExpression(กาบิ,smile2) next()
+กาบิ "อื้ม ขอบคุณนะทั้งสองคน"
+"[playSFX(SlidingGlassDoorSeries) enter(คุณป้า) setPosition(กาบิ,0;ฮารุ,0.3;คานาโอะ,0.6;คุณป้า,1)]{w 0.1}[load(episode2_1-2)]"

@@ -77,6 +77,7 @@ public class NovelController : MonoBehaviour
 
 
         chapterProgress = gameFile.chapterProgress;
+        GameManager.instance.currentChapterIndex = gameFile.episodeNumber;
         //Next();
         //LoadChapterFile(gameFile.chapterName);
     }
@@ -85,13 +86,14 @@ public class NovelController : MonoBehaviour
     string currentChapterFile = "";
     public void SaveGameFile(int gameFileNumber)
     {
+
         gameFile = new GAMEFILE(
             currentChapterFile,
             chapterProgress,
             cachedLastSpeaker,
             DialogueSystem.instance.speakerNameText.text,
             DialogueSystem.instance.speechText.text,
-            GameManager.instance.currentChapterIndex + 1,
+            Int16.Parse(currentChapterFile[7].ToString()),
             DateTime.Now,
             GameManager.instance.checkpoints
         );
@@ -101,7 +103,10 @@ public class NovelController : MonoBehaviour
         gameFile.foreground = instance.foreground.activeImage != null ? instance.foreground.activeImage.texture : null;
         gameFile.cinematic = instance.cinematic.activeImage != null ? instance.cinematic.activeImage.texture : null;
 
-        gameFile.bgm = AudioManager.activeBGM.clip;
+        if (AudioManager.activeBGM == null)
+            gameFile.bgm = null;
+        else
+            gameFile.bgm = AudioManager.activeBGM.clip;
 
         gameFile.characters.Clear();
         foreach (Character c in CharacterManager.instance.characters)
@@ -197,7 +202,7 @@ public class NovelController : MonoBehaviour
 
             if (line != "}")
             {
-                //Debug.Log(line);
+                Debug.Log(line);
                 choices.Add(line.Split('"')[1]);
                 actions.Add(data[chapterProgress + 1].Replace("    ", ""));
                 chapterProgress++;
@@ -424,7 +429,7 @@ public class NovelController : MonoBehaviour
         string[] characters = data.Split(';');
         foreach (string character in characters)
         {
-            string[] parameters = data.Split(',');
+            string[] parameters = character.Split(',');
             string charName = parameters[0];
             float locationX = float.Parse(parameters[1]);
             float locationY = parameters.Length >= 3 ? float.Parse(parameters[2]) : 0;
@@ -438,7 +443,7 @@ public class NovelController : MonoBehaviour
         string[] characters = data.Split(';');
         foreach (string character in characters)
         {
-            string[] parameters = data.Split(',');
+            string[] parameters = character.Split(',');
             string charName = parameters[0];
             string expression = parameters[1];
             float speed = parameters.Length >= 3 ? float.Parse(parameters[2]) : 2f;

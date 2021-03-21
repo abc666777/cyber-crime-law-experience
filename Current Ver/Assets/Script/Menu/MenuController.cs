@@ -22,6 +22,11 @@ public class MenuController : MonoBehaviour
         Instantiate(AssetsLoader.instance.PanelLoader(GlobalReferences.Panel.NewGamePanel), GameObject.Find("Canvas").transform);
     }
 
+    private void Start()
+    {
+        AudioManager.instance.PlayBGM(AssetsLoader.instance.AudioLoader(GlobalReferences.Audio.MainMenuTheme, "BGM"));
+    }
+
     public void LoadGameFunction()
     {
         Instantiate(AssetsLoader.instance.PanelLoader(GlobalReferences.Panel.LoadGamePanel), GameObject.Find("Canvas").transform);

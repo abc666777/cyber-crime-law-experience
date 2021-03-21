@@ -90,4 +90,8 @@ public static class GlobalReferences
             public static string Smug = "smug";
         }
     }
+    public static class Audio
+    {
+        public const string MainMenuTheme = "Beyond-Patrick_Patrikios";
+    }
 }
