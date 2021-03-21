@@ -24,6 +24,7 @@ public class ChapterLineManager : MonoBehaviour
 
             if (dialogueAndActions.Length == 3)
             {
+                Debug.Log(dialogueAndActions[0] + ":" + dialogueAndActions[1] + "/" + dialogueAndActions[2]);
                 speaker = dialogueAndActions[0] == "" ? NovelController.instance.cachedLastSpeaker : dialogueAndActions[0];
                 if (speaker[speaker.Length - 1] == ' ')
                     speaker = speaker.Remove(speaker.Length - 1);
