@@ -547,6 +547,8 @@ public class NovelController : MonoBehaviour
     {
         string[] parameters = data.Split(',');
         bool show = bool.Parse(parameters[0]);
+        if (show == false)
+            DialogueSystem.instance.speechText.text = ""; DialogueSystem.instance.speakerNameText.text = "";
         string texName = parameters[1];
         Texture2D transTex = AssetsLoader.instance.GetTransitionEffects(texName);
         float spd = 2f;
