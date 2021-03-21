@@ -1,4 +1,4 @@
-narrator "{w 2}[setBackground(หน้าบ้านฮารุ) exit(ฮารุ;คานาโอะ) showScene(true,เฟดซ้าย,0.5)]{w 3}เช้าวันต่อมา"
+narrator "{w 2}[setBackground(หน้าบ้านฮารุ) exit(ฮารุ;คานาโอะ) playBGM(OhMy-PatrickPatrikios) showScene(true,เฟดซ้าย,0.5)]{w 3}เช้าวันต่อมา"
 enter(ฮารุ) setPosition(ฮารุ,0.5) playSFX(PhoneVibrate-JulienMatthey) setExpression(ฮารุ,shocked) next()
 ฮารุ "เอ๊ะ ?"
 transCinematic(โทรศัพท์3,ดำ) exit(ฮารุ) next()

@@ -1,4 +1,4 @@
-ฮารุ "{w 2}[setExpression(ฮารุ,delighted) setPosition(ฮารุ,0.5;คานาโอะ,0) showScene(true,เฟดซ้าย)]{w 1}[playBGM(Tropic-AnnoDominiBeats)]{w 1}ทางนี้จ้าคานาโอะ"
+ฮารุ "{w 2}[enter(คานาโอะ) setExpression(ฮารุ,delighted) setCinematic(null) setBackground(คาเฟ่) setPosition(ฮารุ,0.5;คานาโอะ,0) showScene(true,เฟดซ้าย)]{w 1}[playBGM(Tropic-AnnoDominiBeats)]{w 1}ทางนี้จ้าคานาโอะ"
 enter(กาบิ) setPosition(กาบิ,1) setExpression(กาบิ,delighted;คานาโอะ,smile2) next()
 กาบิ "โอ๊ะ ขอโทษนะจ๊ะที่ให้รอ"
 คานาโอะ "ไม่หรอกจ่ะ เราก็พึ่งมาถึงเหมือนกัน"
