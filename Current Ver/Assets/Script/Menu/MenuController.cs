@@ -44,7 +44,7 @@ public class MenuController : MonoBehaviour
 
     public void CreditFunction()
     {
-
+        SceneManager.instance.LoadScene(GlobalReferences.Scene.CreditScene);
     }
 
     public void Quit()

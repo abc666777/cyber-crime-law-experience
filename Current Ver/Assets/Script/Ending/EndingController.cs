@@ -162,4 +162,10 @@ public class EndingController : MonoBehaviour
         else nextButton.SetActive(true);
         settingDscTxt = null;
     }
+
+    public void ToMenu()
+    {
+        AudioManager.instance.PlayBGM(null);
+        SceneManager.instance.LoadScene(GlobalReferences.Scene.StartScene);
+    }
 }

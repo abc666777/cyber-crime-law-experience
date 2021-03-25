@@ -49,7 +49,7 @@ public static class GlobalReferences
         public const string Kanao = "คานาโอะ";
         public const string Bill = "บิล";
         public const string BlackGuy = "บุคคลปริศนา";
-        public const string MissSunday = "มิส ซันเดย์";
+        public const string MissSunday = "ซันเดย์";
         public const string Nompang = "หนมปัง";
         public const string Haru = "ฮารุ";
         public const string Betty = "เบตตี้";
@@ -93,5 +93,6 @@ public static class GlobalReferences
     public static class Audio
     {
         public const string MainMenuTheme = "Beyond-Patrick_Patrikios";
+        public const string CreditTheme = "Marigold-QuincasMoreira";
     }
 }

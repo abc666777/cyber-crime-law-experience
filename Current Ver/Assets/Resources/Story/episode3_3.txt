@@ -1,0 +1,10 @@
+narrator "[playSFX(zapsplat-error) transCinematic(จอ3,ดำ) playBGM(null)]ผิด คุณไม่ใช่ซันเดย์ ทำการลบตัวเอง" playBGM(null)
+โบทัก "(อะ อ้าว ตอบผิดหรอเนี่ย)"
+"(ช่วยไม่ได้แฮะ คงต้องหาทางอื่น)"
+choice
+{
+    "ปรึกษาเพื่อนร่วมงาน"
+    load(episode3_3-1)
+    "ไปหาซันเดย์วันเช้าพรุ่งนี้"
+    load(episode3_3-2)
+}

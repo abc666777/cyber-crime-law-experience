@@ -1,0 +1,52 @@
+"[showScene(false,เฟดซ้าย,0.5)]{w 3}[setCinematic(null) setBackground(bridge) next()]"
+"[showScene(true,เฟดซ้าย,0.5)]{w 3}[playSFX(WalkonTileSeries)]{w 2}[enter(โบทัก;คุณป้า) setPosition(โบทัก,0.8;คุณป้า,0.5) setExpression(โบทัก,smile)]{w 1}[next()]"
+playBGM(NillyWilly-YungLogos) next()
+โบทัก "ขอโทษนะครับ คุณซันเดย์อยู่มั้ยครับ ?" addCheckPoint(ep3_ไม่แฮ๊ก)
+setExpression(คุณป้า,smile) next()
+คุณป้า-รปภ. "อ๋อ ถ้าคุณซันเดย์ล่ะก็เห็นบอกว่ากำลังจะไปขึ้นเครื่องบินนะครับ"
+setExpression(โบทัก,shocked) next()
+โบทัก "ขึ้นเครื่องบิน !? ไปที่ไหนหรอครับ ?"
+คุณป้า-รปภ. "ขอโทษนะครับ แต่ผมก็ไม่ทราบรายละเอียดเหมือนกัน"
+setExpression(โบทัก,smile) next()
+โบทัก "ไม่เป็นไรครับผม ขอบคุณนะครับ"
+setExpression(โบทัก,angry) next()
+โบทัก "(คุณซันเดย์ไปที่สนามบินทำไมกันนะ ?)"
+"[showScene(false,เฟดซ้าย,0.5)]{w 3}[setBackground(สนามบิน) exit(คุณป้า) setPosition(โบทัก0.5) playBGM(null) next()]"
+"[showScene(true,เฟดซ้าย,0.5)]{w 3}[playBGM(Princess-Ramzoid) next()]"
+setExpression(โบทัก,normal) next()
+โบทัก "(คุณซันเดย์อยู่ที่ไหนกันนะ ?)"
+setExpression(โบทัก,laugh) next()
+โบทัก "อ๊ะ คุณซันเดย์" enter(ซันเดย์) setPosition(ซันเดย์,0.8;โบทัก,0.2) setExpression(ซันเดย์,smile)
+setExpression(ซันเดย์,shocked) next()
+ซันเดย์ "คุณโบทัก !? มาทำอะไรที่สนามบินหรอคะ"
+setExpression(โบทัก,smile) next()
+โบทัก "คุณซันเดย์กำลังจะขึ้นเครื่องไปที่ไหนหรอครับ ?"
+setExpression(ซันเดย์,smile) next()
+ซันเดย์ "อะ เอ๋ ? ไปเชียงใหม่ค่ะ"
+setExpression(โบทัก,angry) next()
+โบทัก "..."
+setExpression(ซันเดย์,normal) next()
+ซันเดย์ "มีอะไรรึเปล่าคะคุณโบทัก ?"
+setExpression(โบทัก,angry2) next()
+โบทัก "พื่อนร่วมงานของผมได้โปรแกรมเจาะระบบมาจากคอมพิวเตอร์ของคุณ และตอนนี้คุณก็กำลังตกเป็นผู้ต้องสงสัยอยู่"
+setExpression(โบทัก,angry) next()
+"เพราะงั้นตอนนี้เราคงต้องขอให้คุณอย่าพึ่งเดินทางไปไหนจะดีกว่านะครับ"
+setExpression(ซันเดย์,sad) next()
+ซันเดย์ "คุณโบทักคิดว่าฉันเป็นคนทำหรอคะ ?"
+setExpression(โบทัก,smug) next()
+โบทัก "..."
+"ผมแค่บอกว่าคุณตกเป็นผู้ต้องสงสัย... ผมยังไม่ได้บอกเลยนะว่าผมสงสัยคุณ ผมแค่พูดตามสภาพการน่ะครับ"
+setExpression(ซันเดย์,smug) next()
+ซันเดย์ "หื..."
+โบทัก "คุณจะเป็นคนร้ายหรือไม่... ก็ขึ้นอยู่กับหลักฐานน่ะครับ..."
+"เพราะงั้น... เราอาจจะได้เจอกันอีกครับ"
+ซันเดย์ "..."
+setExpression(ซันเดย์,delighted) next()
+"คงไม่หรอกค่ะ... เพราะฉันไม่ได้ทำผิดอะไร"
+setExpression(ซันเดย์,smile2) next()
+"แต่ถ้าอยากจะคุยกับฉันนอกเหนือจากคดีเจาะระบบละก็... ยินดีนะคะ"
+transBackgrond(null,ดำ) next()
+โบทัก "{w 1.5}[setExpression(โบทัก,angry)](ไม่ผิดแน่ ผู้หญิงคนนี้ต้องมีส่วนรู้เห็นกับคดีนี้แน่ ๆ)"
+"(แต่อะไรล่ะ... หลักฐานที่จะสาวไปถึงก็ยังหาไม่เจอเลย)"
+"(ฉันต้องรู้ให้ได้... ว่าใครเป็นผู้อยู่หลัง และเหตุผลที่เขาทำ)" addCheckPoint(ep3_จบบทปลอม)
+"[showScene(false,ดำ,0.5)]{w 3}[ending()]"

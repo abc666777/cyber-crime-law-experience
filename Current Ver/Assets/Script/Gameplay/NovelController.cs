@@ -583,26 +583,34 @@ public class NovelController : MonoBehaviour
 
     public void SaveButton()
     {
-        Instantiate(AssetsLoader.instance.PanelLoader(GlobalReferences.Panel.SaveGamePanel), GameObject.Find("Canvas").transform);
+        if (!TransitionManager.instance.isTransition)
+            Instantiate(AssetsLoader.instance.PanelLoader(GlobalReferences.Panel.SaveGamePanel), GameObject.Find("Canvas").transform);
     }
 
     public void LoadGame()
     {
-        Instantiate(AssetsLoader.instance.PanelLoader(GlobalReferences.Panel.LoadGamePanel), GameObject.Find("Canvas").transform);
+        if (!TransitionManager.instance.isTransition)
+            Instantiate(AssetsLoader.instance.PanelLoader(GlobalReferences.Panel.LoadGamePanel), GameObject.Find("Canvas").transform);
     }
 
     public void SettingButton()
     {
-        Instantiate(AssetsLoader.instance.PanelLoader(GlobalReferences.Panel.SettingPanel), GameObject.Find("Canvas").transform);
+        if (!TransitionManager.instance.isTransition)
+            Instantiate(AssetsLoader.instance.PanelLoader(GlobalReferences.Panel.SettingPanel), GameObject.Find("Canvas").transform);
     }
 
     public void BackToMenuButton()
     {
-        SceneManager.instance.LoadScene(GlobalReferences.Scene.StartScene);
+        if (!TransitionManager.instance.isTransition)
+        {
+            AudioManager.instance.PlayBGM(null);
+            SceneManager.instance.LoadScene(GlobalReferences.Scene.StartScene);
+        }
     }
 
     public void Quit()
     {
-        SceneManager.instance.Quit();
+        if (!TransitionManager.instance.isTransition)
+            SceneManager.instance.Quit();
     }
 }

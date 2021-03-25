@@ -1,0 +1,14 @@
+narrator "[playSFX(zapsplat-correct)]ถูกต้อง !"
+โบทัก "(อะไรกันเนี่ย ?)"
+"คำถามข้อที่ 2 ทางแยกใกล้อุโมงค์มีกี่แยก ?" next()
+choice
+{
+    "3 แยก"
+    load(episode3_1-2)
+    "4 แยก"
+    load(episode3_3)
+    "5 แยก"
+    load(episode3_3)
+    "อุโมงค์ไม่มีทางแยก"
+    load(episode3_3)
+}
