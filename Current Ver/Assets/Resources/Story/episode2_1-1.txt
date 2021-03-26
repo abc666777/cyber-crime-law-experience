@@ -1,3 +1,4 @@
+ฮารุ "(ถามดีกว่า ก็บอกกันแล้วว่าจะไม่ทิ้งกันใช่ไหมล่ะ)"
 setExpression(ฮารุ,smile) next()
 ฮารุ "กาบิ"
 setExpression(กาบิ,normal) next()

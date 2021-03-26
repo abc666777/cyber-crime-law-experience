@@ -13,7 +13,7 @@ transCinematic(null,ดำ) enter(โบทัก) next()
 choice
 {
     "เจาะระบบคอมพิวเตอร์ของซันเดย์"
-    "[addCheckPoint(ep3_แฮ๊ก) transCinematic(จอ1,ดำ) exit(โบทัก)]{w 1.5}[next()]"
+    "[addCheckPoint(ep3_แฮ๊ก) transCinematic(จอ1,ดำ) exit(โบทัก)]{w 1.5}[load(episode3_2)]"
     "รอไปหาซันเดย์วันเช้าพรุ่งนี้"
     load(episode3_3-2)
 }

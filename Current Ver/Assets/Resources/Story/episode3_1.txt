@@ -63,7 +63,7 @@ choice
     "สีแดง"
     load(episode3_3)
     "สีส้ม"
-    load(episode3_3.txt)
+    load(episode3_3)
     "สีเขียว"
     load(episode3_3)
     "สีฟ้า"

@@ -163,9 +163,17 @@ public class EndingController : MonoBehaviour
         settingDscTxt = null;
     }
 
-    public void ToMenu()
+    public void ToCredit()
     {
         AudioManager.instance.PlayBGM(null);
-        SceneManager.instance.LoadScene(GlobalReferences.Scene.StartScene);
+        SceneManager.instance.LoadScene(GlobalReferences.Scene.CreditScene);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ToCredit();
+        }
     }
 }
