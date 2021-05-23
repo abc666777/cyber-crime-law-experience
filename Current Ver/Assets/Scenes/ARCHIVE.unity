@@ -1961,7 +1961,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u0E1E\u0E23\u0E1A. \u0E04\u0E2D\u0E21\u0E1E\u0E34\u0E27\u0E40\u0E15\u0E2D\u0E23\u0E4C"
+  m_text: "\u0E1E.\u0E23.\u0E1A. \u0E04\u0E2D\u0E21\u0E1E\u0E34\u0E27\u0E40\u0E15\u0E2D\u0E23\u0E4C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6cf1f80d92c317f48ab6875b596bdfac, type: 2}
   m_sharedMaterial: {fileID: 2267530116229388341, guid: 6cf1f80d92c317f48ab6875b596bdfac,
@@ -2031,10 +2031,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1097155937}
-    characterCount: 16
+    characterCount: 18
     spriteCount: 0
     spaceCount: 1
-    wordCount: 3
+    wordCount: 5
     linkCount: 0
     lineCount: 1
     pageCount: 1
